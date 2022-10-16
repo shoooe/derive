@@ -4,6 +4,7 @@
   "description": "Library to derive a type from another.",
   "types": "index.d.ts",
   "author": "Shoe <tpigarelli@gmail.com>",
+  "repository": "github:shoooe/derive",
   "license": "MIT",
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.40.0",
