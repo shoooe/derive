@@ -1,0 +1,29 @@
+{
+  "name": "@shoooe/derive",
+  "version": "0.1.0",
+  "description": "Library to derive a type from another.",
+  "types": "index.d.ts",
+  "author": "Shoe <tpigarelli@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.40.0",
+    "@typescript-eslint/parser": "^5.40.0",
+    "eslint": "^8.25.0",
+    "prettier": "^2.7.1",
+    "tslint": "^6.1.3",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^4.8.4"
+  },
+  "scripts": {
+    "build": "yarn tsc",
+    "test": "yarn build",
+    "lint": "eslint .",
+    "prepare": "",
+    "prepublishOnly": "yarn lint"
+  },
+  "files": [
+    "src/**/*",
+    "index.d.ts"
+  ],
+  "private": false
+}
