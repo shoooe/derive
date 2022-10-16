@@ -85,9 +85,9 @@ type _ShapeInto<
 // on hover.
 // Reference: https://stackoverflow.com/a/57683652/15992045
 type _ForceEditorEvaluation<T> = T extends Record<symbol, unknown>
-  ? T extends infer O
-    ? { [K in keyof O]: _ForceEditorEvaluation<O[K]> }
-    : never
+  ? { [K in keyof T]: _ForceEditorEvaluation<T[K]> }
+  : T extends Array<infer E>
+  ? Array<_ForceEditorEvaluation<E>>
   : T;
 
 export type Derive<

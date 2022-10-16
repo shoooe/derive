@@ -70,6 +70,7 @@ type User = {
   name: string;
   parents: User[] | null;
 };
+
 type Book = {
   author: User;
   isdn: number;
