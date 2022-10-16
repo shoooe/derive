@@ -2,6 +2,8 @@
 
 Utility type to generate a type starting from another.
 
+<img src="./assets/images/example-usage.gif" alt="Example usage" />
+
 ## Installation
 
 ```
