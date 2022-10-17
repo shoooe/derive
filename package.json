@@ -1,8 +1,15 @@
 {
   "name": "@shoooe/derive",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Library to derive a type from another.",
-  "types": "index.d.ts",
+  "keywords": [
+    "safe",
+    "derive",
+    "types",
+    "typesafe",
+    "typescript"
+  ],
+  "types": "out/index.d.ts",
   "author": "Shoe <tpigarelli@gmail.com>",
   "repository": "github:shoooe/derive",
   "license": "MIT",
@@ -16,15 +23,14 @@
     "typescript": "^4.8.4"
   },
   "scripts": {
-    "build": "yarn tsc",
+    "build": "npx tsc src/index.ts -d --emitDeclarationOnly --outDir out",
     "test": "yarn build",
     "lint": "eslint .",
-    "prepare": "",
+    "prepare": "yarn build",
     "prepublishOnly": "yarn lint"
   },
   "files": [
-    "src/**/*",
-    "index.d.ts"
+    "out"
   ],
   "private": false
 }
