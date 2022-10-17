@@ -10,6 +10,7 @@
     "typescript"
   ],
   "types": "out/index.d.ts",
+  "main": "out/index.js",
   "author": "Shoe <tpigarelli@gmail.com>",
   "repository": "github:shoooe/derive",
   "license": "MIT",
@@ -23,7 +24,7 @@
     "typescript": "^4.8.4"
   },
   "scripts": {
-    "build": "npx tsc src/index.ts -d --emitDeclarationOnly --outDir out",
+    "build": "yarn tsc",
     "test": "yarn build",
     "lint": "eslint .",
     "prepare": "yarn build",

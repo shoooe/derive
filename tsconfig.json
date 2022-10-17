@@ -3,9 +3,9 @@
     "target": "es6",
     "module": "commonjs",
     "declaration": true,
-    "outDir": "./build",
+    "outDir": "./out",
     "strict": true
   },
-  "include": ["test"],
-  "exclude": ["/node_modules", "/build"]
+  "include": ["src"],
+  "exclude": ["/node_modules", "/out"]
 }
