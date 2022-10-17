@@ -1,6 +1,6 @@
 {
   "name": "@shoooe/derive",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Library to derive a type from another.",
   "types": "index.d.ts",
   "author": "Shoe <tpigarelli@gmail.com>",
