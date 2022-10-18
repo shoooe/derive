@@ -1,6 +1,6 @@
 {
   "name": "@shoooe/derive",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Library to derive a type from another.",
   "keywords": [
     "safe",
@@ -24,7 +24,9 @@
     "typescript": "^4.8.4"
   },
   "scripts": {
-    "build": "tsc --build --clean",
+    "build:clean": "tsc --build --clean",
+    "build:compile": "tsc",
+    "build": "yarn build:clean && yarn build:compile",
     "test": "yarn build",
     "lint": "eslint .",
     "prepare": "yarn build",
