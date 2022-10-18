@@ -8,6 +8,7 @@ Features:
 
 - 😎 Type safe
 - 🌱 Minimal & lightweight
+- ⌨️​ Autocompletion for fields
 - 👀 Preview expanded types in intellisense
 - 💫 Supports recursive & mutually recursive types
 - 💋 Built with GraphQL in mind
