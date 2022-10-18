@@ -12,7 +12,7 @@ Features:
 - 👀 Preview expanded types in intellisense
 - 💫 Supports recursive & mutually recursive types
 - ❓ Optional fields support
-- 💋 Built with GraphQL in mind
+- 💋 Inspired by GraphQL
 - 🛠 Supports [GraphQL Code Generator](https://github.com/dotansimha/graphql-code-generator) types
 
 ## Installation
@@ -150,4 +150,5 @@ type Result = Derive<
 Special thanks to:
 
 - [Perdoo](https://www.perdoo.com/) for sponsoring the initial research & implementation
+- [Szaman](https://github.com/szamanr) for the initial code review
 - [The Guild](the-guild.dev) for building [GraphQL Code Generator](https://github.com/dotansimha/graphql-code-generator)
