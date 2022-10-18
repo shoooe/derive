@@ -1,6 +1,8 @@
 import type { ShapeLike } from './ShapeLike';
 import type { ForceIntellisenseExpansion } from './ForceIntellisenseExpansion';
 import { Auto } from './Auto';
+import { RequiredKeysOf } from './RequiredKeysOf';
+import { OptionalKeysOf } from './OptionalKeysOf';
 
 /**
  * Resolves the field of an object given its type in the base type
@@ -38,7 +40,24 @@ type NonExpandedDerive<
   BaseType extends Record<symbol, unknown>,
   ShapeType extends ShapeLike<BaseType>,
 > = {
-  [KeyType in keyof ShapeType]: KeyType extends keyof BaseType
+  [KeyType in keyof ShapeType as KeyType extends RequiredKeysOf<BaseType>
+    ? KeyType
+    : never]: KeyType extends keyof BaseType
+    ? ResolveFieldType<BaseType[KeyType], ShapeType[KeyType]>
+    : ShapeType[KeyType];
+} & {
+  [KeyType in keyof ShapeType as KeyType extends OptionalKeysOf<BaseType>
+    ? KeyType
+    : never]?: KeyType extends keyof BaseType
+    ? ResolveFieldType<BaseType[KeyType], ShapeType[KeyType]>
+    : ShapeType[KeyType];
+} & {
+  [KeyType in keyof ShapeType as KeyType extends Exclude<
+    keyof ShapeType,
+    keyof BaseType
+  >
+    ? KeyType
+    : never]: KeyType extends keyof BaseType
     ? ResolveFieldType<BaseType[KeyType], ShapeType[KeyType]>
     : ShapeType[KeyType];
 };

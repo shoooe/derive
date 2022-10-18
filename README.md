@@ -11,6 +11,7 @@ Features:
 - ⌨️​ Autocompletion for fields
 - 👀 Preview expanded types in intellisense
 - 💫 Supports recursive & mutually recursive types
+- ❓ Optional fields support
 - 💋 Built with GraphQL in mind
 - 🛠 Supports [GraphQL Code Generator](https://github.com/dotansimha/graphql-code-generator) types
 

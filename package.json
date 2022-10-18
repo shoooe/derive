@@ -1,13 +1,14 @@
 {
   "name": "@shoooe/derive",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Library to derive a type from another.",
   "keywords": [
     "safe",
     "derive",
     "types",
     "typesafe",
-    "typescript"
+    "typescript",
+    "graphql"
   ],
   "types": "out/index.d.ts",
   "main": "out/index.js",

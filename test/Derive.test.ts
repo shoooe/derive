@@ -12,6 +12,8 @@ type User = {
   manager: User;
   name: string;
   parents: User[] | null;
+  note?: string;
+  editorNote?: string | null;
 };
 
 type Book = {
@@ -35,6 +37,14 @@ test('Derive', [
   assertEqualTypes<
     Derive<Book, { synopsis: Auto }>,
     { synopsis: string | null }
+  >(),
+  assertEqualTypes<
+    Derive<User, { note: Auto }>,
+    { note?: string | undefined }
+  >(),
+  assertEqualTypes<
+    Derive<User, { editorNote: Auto }>,
+    { editorNote?: string | null }
   >(),
 
   // Objects
