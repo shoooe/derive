@@ -4,7 +4,7 @@ import type { Auto } from './Auto';
 /**
  * Internal representation of the shape of the derived type.
  *
- * @private
+ * @package
  * @example
  * {
  *     first: Auto;

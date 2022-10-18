@@ -6,7 +6,7 @@ import { Auto } from './Auto';
  * Resolves the field of an object given its type in the base type
  * and its type in the corresponding shape.
  *
- * @private
+ * @package
  */
 type ResolveFieldType<BaseFieldType, ShapeFieldType> = BaseFieldType extends
   | null
@@ -32,7 +32,7 @@ type ResolveFieldType<BaseFieldType, ShapeFieldType> = BaseFieldType extends
  * Internal representation for `Derive` which is not expanded by intellisense.
  *
  * @see Derive
- * @private
+ * @package
  */
 type NonExpandedDerive<
   BaseType extends Record<symbol, unknown>,
