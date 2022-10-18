@@ -4,6 +4,6 @@
  *
  * @see {@link https://michalzalecki.com/nominal-typing-in-typescript/}
  **/
-export class Infer {
+export class Auto {
   private __nominal!: void;
 }

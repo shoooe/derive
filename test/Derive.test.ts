@@ -1,7 +1,7 @@
 import { assertEqualTypes } from '../utils/assertEqualTypes';
 import { test } from '../utils/test';
 import type { Derive } from '../src/Derive';
-import type { Infer } from '../src/Infer';
+import type { Auto } from '../src/Auto';
 
 // Test data (with recursive & mutually recursive types)
 type User = {
@@ -25,73 +25,73 @@ type Book = {
 test('Derive', [
   // Scalars
   assertEqualTypes<
-    Derive<User, { id: Infer; name: Infer }>,
+    Derive<User, { id: Auto; name: Auto }>,
     { id: number; name: string }
   >(),
   assertEqualTypes<
-    Derive<Book, { title: Infer }>,
+    Derive<Book, { title: Auto }>,
     { title: string | null | undefined }
   >(),
   assertEqualTypes<
-    Derive<Book, { synopsis: Infer }>,
+    Derive<Book, { synopsis: Auto }>,
     { synopsis: string | null }
   >(),
 
   // Objects
   assertEqualTypes<
-    Derive<User, { manager: { id: Infer } }>,
+    Derive<User, { manager: { id: Auto } }>,
     { manager: { id: number } }
   >(),
   assertEqualTypes<
-    Derive<User, { bestFriend: { id: Infer } }>,
+    Derive<User, { bestFriend: { id: Auto } }>,
     { bestFriend: { id: number } | undefined }
   >(),
 
   // Arrays
   assertEqualTypes<
-    Derive<User, { friends: { id: Infer } }>,
+    Derive<User, { friends: { id: Auto } }>,
     { friends: { id: number }[] }
   >(),
   assertEqualTypes<
-    Derive<User, { parents: { id: Infer } }>,
+    Derive<User, { parents: { id: Auto } }>,
     { parents: { id: number }[] | null }
   >(),
 
   // Recursion
   assertEqualTypes<
-    Derive<User, { parents: { manager: { id: Infer } } }>,
+    Derive<User, { parents: { manager: { id: Auto } } }>,
     { parents: { manager: { id: number } }[] | null }
   >(),
 
   // Mutual recursion
   assertEqualTypes<
-    Derive<User, { favoriteBook: { author: { id: Infer } } }>,
+    Derive<User, { favoriteBook: { author: { id: Auto } } }>,
     { favoriteBook: { author: { id: number } } | null }
   >(),
 
-  // Infer modifications
+  // Auto modifications
   assertEqualTypes<
-    Derive<Book, { synopsis: Infer | null }>,
+    Derive<Book, { synopsis: Auto | null }>,
     { synopsis: string | null }
   >(),
   assertEqualTypes<
-    Derive<Book, { synopsis: Infer | undefined }>,
+    Derive<Book, { synopsis: Auto | undefined }>,
     { synopsis: string | null | undefined }
   >(),
 
   // Custom properties
   assertEqualTypes<
-    Derive<Book, { isActive: boolean; synopsis: Infer }>,
+    Derive<Book, { isActive: boolean; synopsis: Auto }>,
     { isActive: boolean; synopsis: string | null }
   >(),
 
   // Supports aliases
   assertEqualTypes<
-    Derive<Book, { isdn: Infer; someAlias: Book['isdn'] }>,
+    Derive<Book, { isdn: Auto; someAlias: Book['isdn'] }>,
     { isdn: number; someAlias: number }
   >(),
   assertEqualTypes<
-    Derive<Book, { isdn: Infer; someAlias: Book['isdn'] | null }>,
+    Derive<Book, { isdn: Auto; someAlias: Book['isdn'] | null }>,
     { isdn: number; someAlias: number | null }
-  >()
+  >(),
 ]);

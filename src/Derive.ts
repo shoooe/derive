@@ -1,6 +1,6 @@
 import type { ShapeLike } from './ShapeLike';
 import type { ForceIntellisenseExpansion } from './ForceIntellisenseExpansion';
-import { Infer } from './Infer';
+import { Auto } from './Auto';
 
 /**
  * Resolves the field of an object given its type in the base type
@@ -24,7 +24,7 @@ type ResolveFieldType<BaseFieldType, ShapeFieldType> = BaseFieldType extends
   ?
       | ResolveFieldType<BaseFieldType, NonNullable<ShapeFieldType>>
       | Extract<ShapeFieldType, null | undefined>
-  : ShapeFieldType extends Infer
+  : ShapeFieldType extends Auto
   ? BaseFieldType
   : ShapeFieldType;
 
@@ -36,7 +36,7 @@ type ResolveFieldType<BaseFieldType, ShapeFieldType> = BaseFieldType extends
  */
 type NonExpandedDerive<
   BaseType extends Record<symbol, unknown>,
-  ShapeType extends ShapeLike<BaseType>
+  ShapeType extends ShapeLike<BaseType>,
 > = {
   [KeyType in keyof ShapeType]: KeyType extends keyof BaseType
     ? ResolveFieldType<BaseType[KeyType], ShapeType[KeyType]>
@@ -48,5 +48,5 @@ type NonExpandedDerive<
  */
 export type Derive<
   BaseType extends Record<symbol, unknown>,
-  ShapeType extends ShapeLike<BaseType>
+  ShapeType extends ShapeLike<BaseType>,
 > = ForceIntellisenseExpansion<NonExpandedDerive<BaseType, ShapeType>>;

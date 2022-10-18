@@ -1,5 +1,5 @@
 import type { CoreTypeOf } from './CoreTypeOf';
-import type { Infer } from './Infer';
+import type { Auto } from './Auto';
 
 /**
  * Internal representation of the shape of the derived type.
@@ -7,10 +7,10 @@ import type { Infer } from './Infer';
  * @private
  * @example
  * {
- *     first: Infer;
- *     second: Infer | null;
+ *     first: Auto;
+ *     second: Auto | null;
  *     third: {
- *         fourth: Infer;
+ *         fourth: Auto;
  *         fifth: boolean;
  *     }
  * }
@@ -21,5 +21,5 @@ export type ShapeLike<BaseType extends Record<symbol, unknown>> = {
     unknown
   >
     ? ShapeLike<CoreTypeOf<BaseType[KeyType]>>
-    : Infer | null | undefined;
+    : Auto | null | undefined;
 };

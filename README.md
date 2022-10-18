@@ -39,30 +39,30 @@ We can derive a subset of its properties (and extend them via):
 type Result = Derive<
   User,
   {
-    // `Infer` = infer original type (`number`)
-    id: Infer;
+    // `Auto` = infer original type (`number`)
+    id: Auto;
 
-    // `Infer` = infer original type (`string`)
-    name: Infer;
+    // `Auto` = infer original type (`string`)
+    name: Auto;
 
     // Automatically expands nullable & optional types, which means that `null`
     // and `undefined` will be added automatically to the resulting type if
     // they existed in the root type.
     bestFriend: {
-      name: Infer;
+      name: Auto;
     };
 
     // Automatically expands arrays as well
     friends: {
-      name: Infer;
+      name: Auto;
       isActive: boolean; // This is an extra field (not coming from the root type)
       favoriteBook: {
         // Supports mutually recursive types
-        isdn: Infer;
-        title: Infer;
-        synopsis: Infer;
+        isdn: Auto;
+        title: Auto;
+        synopsis: Auto;
         author: {
-          name: Infer;
+          name: Auto;
         };
       };
     };
@@ -106,10 +106,10 @@ You can extract and reuse shapes:
 type CustomShape = Shape<
   User,
   {
-    id: Infer;
-    name: Infer;
+    id: Auto;
+    name: Auto;
     bestFriend: {
-      name: Infer;
+      name: Auto;
     };
   }
 >;
@@ -127,8 +127,8 @@ Otherwise you can use them inside other shapes:
 type Result = Derive<
   User,
   {
-    id: Infer;
-    name: Infer;
+    id: Auto;
+    name: Auto;
     bestFriend: CustomShape;
   }
 >;

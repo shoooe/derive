@@ -6,10 +6,10 @@ import type { ShapeLike } from './ShapeLike';
  *
  * @example
  * type Custom = Shape<Base, {
- *     first: Infer;
- *     second: Infer | null;
+ *     first: Auto;
+ *     second: Auto | null;
  *     third: {
- *         fourth: Infer;
+ *         fourth: Auto;
  *         fifth: boolean;
  *     }
  * }>;

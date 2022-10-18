@@ -1,5 +1,5 @@
 import { assertEqualTypes } from '../utils/assertEqualTypes';
 import { test } from '../utils/test';
-import { Infer } from '../src/Infer';
+import { Auto } from '../src/Auto';
 
-test('Infer', [assertEqualTypes<Infer, Infer>()]);
+test('Auto', [assertEqualTypes<Auto, Auto>()]);

@@ -6,6 +6,6 @@
     "outDir": "./out",
     "strict": true
   },
-  "include": ["src"],
+  "include": ["."],
   "exclude": ["/node_modules", "/out"]
 }

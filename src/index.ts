@@ -1,3 +1,3 @@
 export type { Derive } from './Derive';
-export type { Infer } from './Infer';
+export type { Auto } from './Auto';
 export type { Shape } from './Shape';

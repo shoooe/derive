@@ -1,7 +1,7 @@
 import { assertEqualTypes } from '../utils/assertEqualTypes';
 import { test } from '../utils/test';
 import { Shape } from '../src/Shape';
-import { Infer } from '../src/Infer';
+import { Auto } from '../src/Auto';
 import { Derive } from '../src/Derive';
 
 type User = {
@@ -14,17 +14,17 @@ type User = {
 type UserDetails = Shape<
   User,
   {
-    id: Infer;
-    name: Infer;
+    id: Auto;
+    name: Auto;
   }
 >;
 
-type UserExtra = Shape<User, { id: Infer; isActive?: boolean }>;
+type UserExtra = Shape<User, { id: Auto; isActive?: boolean }>;
 
 type UserWithFriends = Shape<
   User,
   {
-    id: Infer;
+    id: Auto;
     bestFriend: UserDetails;
     friends: UserDetails & UserExtra;
   }

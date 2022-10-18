@@ -1,20 +1,20 @@
 import { assertEqualTypes } from '../utils/assertEqualTypes';
 import { test } from '../utils/test';
 import { ShapeLike } from '../src/ShapeLike';
-import { Infer } from '../src/Infer';
+import { Auto } from '../src/Auto';
 
 test('ShapeLike', [
   assertEqualTypes<
     ShapeLike<{ id: number }>,
     {
-      id?: Infer | null | undefined;
+      id?: Auto | null | undefined;
     }
   >(),
   assertEqualTypes<
     ShapeLike<{ id: number; name?: string | null }>,
     {
-      id?: Infer | null | undefined;
-      name?: Infer | null | undefined;
+      id?: Auto | null | undefined;
+      name?: Auto | null | undefined;
     }
   >(),
 ]);
