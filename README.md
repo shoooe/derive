@@ -1,8 +1,17 @@
 # Derive
 
+[![npm version](https://badge.fury.io/js/@shoooe%2Fderive.svg)](https://badge.fury.io/js/@shoooe%2Fderive)
+
 Utility type to generate a type starting from another.
 
-<img src="./assets/images/example-usage.gif" alt="Example usage" />
+Features:
+
+- 😎 Type safe
+- 🌱 Minimal & lightweight
+- 👀 Preview expanded types in intellisense
+- 💫 Supports recursive & mutually recursive types
+- 💋 Built with GraphQL in mind
+- 🛠 Supports [GraphQL Code Generator](https://github.com/dotansimha/graphql-code-generator) types
 
 ## Installation
 
@@ -133,3 +142,10 @@ type Result = Derive<
   }
 >;
 ```
+
+## Credits
+
+Special thanks to:
+
+- [Perdoo](https://www.perdoo.com/) for sponsoring the initial research & implementation
+- [The Guild](the-guild.dev) for building [GraphQL Code Generator](https://github.com/dotansimha/graphql-code-generator)
