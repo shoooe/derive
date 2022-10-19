@@ -3,6 +3,7 @@
  * on hover (e.g. in Visual Studio Code).
  *
  * @package
+ *
  * @see {@link https://stackoverflow.com/a/57683652/15992045}
  */
 export type ForceIntellisenseExpansion<T> = T extends Record<symbol, unknown>

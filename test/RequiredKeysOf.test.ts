@@ -12,6 +12,6 @@ type Mouse = {
   g?: string | null | undefined;
 };
 
-test('OptionalKeysOf', [
+test('RequiredKeysOf', [
   assertEqualTypes<RequiredKeysOf<Mouse>, 'a' | 'b' | 'c' | 'd'>(),
 ]);

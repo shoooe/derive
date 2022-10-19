@@ -1,10 +1,10 @@
-import type { CoreTypeOf } from './CoreTypeOf';
-import type { Auto } from './Auto';
+import { ShapeFieldLike } from './ShapeFieldLike';
 
 /**
  * Internal representation of the shape of the derived type.
  *
  * @package
+ *
  * @example
  * {
  *     first: Auto;
@@ -16,10 +16,5 @@ import type { Auto } from './Auto';
  * }
  */
 export type ShapeLike<BaseType extends Record<symbol, unknown>> = {
-  [KeyType in keyof BaseType]?: CoreTypeOf<BaseType[KeyType]> extends Record<
-    symbol,
-    unknown
-  >
-    ? ShapeLike<CoreTypeOf<BaseType[KeyType]>>
-    : Auto | null | undefined;
+  [KeyType in keyof BaseType]?: ShapeFieldLike<BaseType, KeyType>;
 };
