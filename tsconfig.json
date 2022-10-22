@@ -6,6 +6,6 @@
     "outDir": "./out",
     "strict": true
   },
-  "include": ["./src/"],
+  "files": ["./index.ts"],
   "exclude": ["/node_modules", "/out"]
 }
