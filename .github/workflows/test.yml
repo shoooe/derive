@@ -4,8 +4,8 @@ on:
   push:
 
 jobs:
-  test:
-    name: Tests
+  static-tests:
+    name: Static tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
