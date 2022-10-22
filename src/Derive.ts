@@ -1,11 +1,25 @@
-import type { ShapeLike } from './ShapeLike';
+import { Auto } from './Auto';
 import type { ForceIntellisenseExpansion } from './ForceIntellisenseExpansion';
-import type { NonExpandedDerive } from './NonExpandedDerive';
+import { ResolveType } from './ResolveType';
+import { ShapeLike } from './ShapeLike';
 
 /**
+ * Utility used to derive a type from another type.
  *
+ * @example
+ * type Result = Derive<
+ *   User,
+ *   {
+ *      id: Auto;
+ *      name: Auto;
+ *      bestFriend: {
+ *        id: Auto;
+ *      };
+ *      extraField?: boolean;
+ *   }
+ * >;
  */
 export type Derive<
-  BaseType extends Record<symbol, unknown>,
-  ShapeType extends ShapeLike<BaseType>,
-> = ForceIntellisenseExpansion<NonExpandedDerive<BaseType, ShapeType>>;
+  BaseType,
+  ShapeType extends ShapeLike<BaseType> = Auto,
+> = ForceIntellisenseExpansion<ResolveType<BaseType, ShapeType>>;

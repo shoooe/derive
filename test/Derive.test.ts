@@ -94,14 +94,44 @@ test('Derive', [
     Derive<Book, { isActive: boolean; synopsis: Auto }>,
     { isActive: boolean; synopsis: string | null }
   >(),
+  assertEqualTypes<
+    Derive<Book, { isActive?: boolean; synopsis: Auto }>,
+    { isActive?: boolean; synopsis: string | null }
+  >(),
 
   // Supports aliases
   assertEqualTypes<
-    Derive<Book, { isdn: Auto; someAlias: Book['isdn'] }>,
+    Derive<Book, { isdn: Auto; someAlias: Derive<Book['isdn']> }>,
     { isdn: number; someAlias: number }
   >(),
   assertEqualTypes<
-    Derive<Book, { isdn: Auto; someAlias: Book['isdn'] | null }>,
+    Derive<Book, { isdn: Auto; someAlias: Derive<Book['isdn'], Auto | null> }>,
     { isdn: number; someAlias: number | null }
+  >(),
+  assertEqualTypes<
+    Derive<Book, { isdn: Auto; someAlias: Derive<Book['isdn']> | null }>,
+    { isdn: number; someAlias: number | null }
+  >(),
+  assertEqualTypes<
+    Derive<Book, { isdn: Auto; someAlias?: Derive<Book['isdn'], Auto | null> }>,
+    { isdn: number; someAlias?: number | null }
+  >(),
+  assertEqualTypes<
+    Derive<
+      Book,
+      {
+        isdn: Auto;
+        someAlias?: Derive<Book['author'], { id: Auto; note: Auto }>;
+      }
+    >,
+    {
+      isdn: number;
+      someAlias?:
+        | {
+            id: number;
+            note?: string | undefined;
+          }
+        | undefined;
+    }
   >(),
 ]);
