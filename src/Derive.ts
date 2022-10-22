@@ -1,5 +1,5 @@
 import { Auto } from './Auto';
-import type { ForceIntellisenseExpansion } from './ForceIntellisenseExpansion';
+import { ForceIntellisenseExpansion } from './ForceIntellisenseExpansion';
 import { ResolveAuto } from './ResolveAuto';
 import { ShapeLike } from './ShapeLike';
 

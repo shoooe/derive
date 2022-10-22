@@ -1,5 +1,5 @@
-import type { ResolveAuto } from './ResolveAuto';
-import type { ObjectShapeLike } from './ObjectShapeLike';
+import { ResolveAuto } from './ResolveAuto';
+import { ObjectShapeLike } from './ObjectShapeLike';
 import { ResultRequiredKeys } from './ResultRequiredKeys';
 import { ResolveAliases } from './ResolveAliases';
 import { ResultOptionalKeys } from './ResultOptionalKeys';

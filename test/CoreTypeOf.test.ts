@@ -20,5 +20,5 @@ test('CoreTypeOf', [
   // Arrays nullability
   assertEqualTypes<CoreTypeOf<Array<number> | null>, number>(),
   assertEqualTypes<CoreTypeOf<Array<number> | undefined>, number>(),
-  assertEqualTypes<CoreTypeOf<Array<number> | null | undefined>, number>()
+  assertEqualTypes<CoreTypeOf<Array<number> | null | undefined>, number>(),
 ]);

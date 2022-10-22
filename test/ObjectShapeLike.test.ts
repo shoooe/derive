@@ -6,15 +6,17 @@ import { Auto } from '../src/Auto';
 test('ObjectShapeLike', [
   assertEqualTypes<
     ObjectShapeLike<{ id: number }>,
-    {
-      id?: Auto | null | undefined;
-    }
+    | Record<string, unknown>
+    | {
+        id?: Auto | null | undefined;
+      }
   >(),
   assertEqualTypes<
     ObjectShapeLike<{ id: number; name?: string | null }>,
-    {
-      id?: Auto | null | undefined;
-      name?: Auto | null | undefined;
-    }
+    | Record<string, unknown>
+    | {
+        id?: Auto | null | undefined;
+        name?: Auto | null | undefined;
+      }
   >(),
 ]);

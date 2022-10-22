@@ -1,7 +1,7 @@
 import { assertEqualTypes } from '../utils/assertEqualTypes';
 import { test } from '../utils/test';
-import type { Derive } from '../src/Derive';
-import type { Auto } from '../src/Auto';
+import { Derive } from '../src/Derive';
+import { Auto } from '../src/Auto';
 import { Alias } from '../src/Alias';
 
 // Test data (with recursive & mutually recursive types)
@@ -26,6 +26,11 @@ type Book = {
 };
 
 test('Derive', [
+  // Simple types
+  assertEqualTypes<Derive<number>, number>(),
+  assertEqualTypes<Derive<number, Auto>, number>(),
+  assertEqualTypes<Derive<number, Auto | null>, number | null>(),
+
   // Scalars
   assertEqualTypes<
     Derive<User, { id: Auto; name: Auto }>,

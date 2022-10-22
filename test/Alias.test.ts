@@ -12,5 +12,5 @@ type User = {
 test('Alias', [
   assertNonEqualTypes<Alias<User, 'id', Auto>, Alias<User, 'name', Auto>>(),
   assertEqualTypes<Alias<User, 'name', Auto>, Alias<User, 'name', Auto>>(),
-  assertEqualTypes<Alias<User, 'name', Auto>, Alias<User, 'name'>>(),
+  assertEqualTypes<Alias<User, 'name'>, Alias<User, 'name', Auto>>(),
 ]);

@@ -3,6 +3,7 @@ import { test } from '../utils/test';
 import { Shape } from '../src/Shape';
 import { Auto } from '../src/Auto';
 import { Derive } from '../src/Derive';
+import { Alias } from '../src/Alias';
 
 type User = {
   id: number;
@@ -30,6 +31,10 @@ type UserWithFriends = Shape<
   }
 >;
 
+type ShapeWithNoCommonFields = Shape<User, { isActive: boolean }>;
+
+type ShapeWithOnlyAliases = Shape<User, { alias: Alias<User, 'name'> }>;
+
 test('Shape', [
   assertEqualTypes<Derive<User, UserDetails>, { id: number; name: string }>(),
   assertEqualTypes<
@@ -46,6 +51,18 @@ test('Shape', [
       id: number;
       bestFriend: { id: number; name: string } | undefined;
       friends: { id: number; name: string; isActive?: boolean }[] | null;
+    }
+  >(),
+  assertEqualTypes<
+    Derive<User, ShapeWithNoCommonFields>,
+    {
+      isActive: boolean;
+    }
+  >(),
+  assertEqualTypes<
+    Derive<User, ShapeWithOnlyAliases>,
+    {
+      alias: string;
     }
   >(),
 ]);

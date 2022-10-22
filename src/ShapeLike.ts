@@ -1,6 +1,6 @@
-import type { Auto } from './Auto';
-import type { CoreTypeOf } from './CoreTypeOf';
-import type { ObjectShapeLike } from './ObjectShapeLike';
+import { Auto } from './Auto';
+import { CoreTypeOf } from './CoreTypeOf';
+import { ObjectShapeLike } from './ObjectShapeLike';
 
 /**
  * Represents the possible shape values for a given field.

@@ -1,4 +1,4 @@
-import type { ObjectShapeLike } from './ObjectShapeLike';
+import { ObjectShapeLike } from './ObjectShapeLike';
 
 /**
  * Type used to define a shape that can then be reused as a `Derive` shape

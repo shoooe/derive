@@ -15,6 +15,8 @@ import { ShapeLike } from './ShapeLike';
  *     }
  * }
  */
-export type ObjectShapeLike<BaseType extends Record<symbol, unknown>> = {
-  [KeyType in keyof BaseType]?: ShapeLike<BaseType[KeyType]>;
-};
+export type ObjectShapeLike<BaseType extends Record<symbol, unknown>> =
+  | Record<string, unknown>
+  | {
+      [KeyType in keyof BaseType]?: ShapeLike<BaseType[KeyType]>;
+    };

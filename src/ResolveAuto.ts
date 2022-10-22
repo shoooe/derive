@@ -1,6 +1,6 @@
-import type { Auto } from './Auto';
-import type { ResolveObjectType } from './ResolveObjectType';
-import type { ShapeLike } from './ShapeLike';
+import { Auto } from './Auto';
+import { ResolveObjectType } from './ResolveObjectType';
+import { ShapeLike } from './ShapeLike';
 
 /**
  * Resolves the field of an object given its type in the base type
