@@ -28,7 +28,7 @@ type Book = {
 
 test('Derive', [
   // Simple types
-  // assertEqualTypes<Derive<number>, number>(),
+  assertEqualTypes<Derive<number>, number>(),
   assertEqualTypes<Derive<number, Auto>, number>(),
   assertEqualTypes<Derive<number, Auto | null>, number | null>(),
 
@@ -61,6 +61,13 @@ test('Derive', [
       { nested: { id: string } },
       // @ts-expect-error: Cannot use `Auto` for object
       Auto
+    >
+  >(),
+  assertCompilationError<
+    Derive<
+      { id: string },
+      // @ts-expect-error: Cannot use arrays with `Auto`
+      Auto[]
     >
   >(),
 

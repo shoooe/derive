@@ -14,7 +14,9 @@ type User = {
 test('Alias', [
   assertNonEqualTypes<Alias<User, 'id', Auto>, Alias<User, 'name', Auto>>(),
   assertEqualTypes<Alias<User, 'name', Auto>, Alias<User, 'name', Auto>>(),
-  // assertEqualTypes<Alias<User, 'name'>, Alias<User, 'name', Auto>>(),
+  assertEqualTypes<Alias<User, 'name'>, Alias<User, 'name', Auto>>(),
+
+  // Compilation errors
   assertCompilationError<
     Alias<
       User,
@@ -39,6 +41,14 @@ test('Alias', [
       {
         id: number;
       }
+    >
+  >(),
+  assertCompilationError<
+    Alias<
+      User,
+      'id',
+      // @ts-expect-error: Cannot use arrays with `Auto`
+      Auto[]
     >
   >(),
 ]);

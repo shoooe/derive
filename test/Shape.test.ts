@@ -61,6 +61,13 @@ test('Shape', [
       }
     >
   >(),
+  assertCompilationError<
+    Shape<
+      { id: string },
+      // @ts-expect-error: Cannot use arrays with `Auto`
+      Auto[]
+    >
+  >(),
 
   // Shapes & shapes composition
   assertEqualTypes<Derive<User, UserDetails>, { id: number; name: string }>(),
