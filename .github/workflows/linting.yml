@@ -1,11 +1,11 @@
-name: Tests
+name: Linting
 
 on:
   push:
 
 jobs:
-  static-tests:
-    name: Static tests
+  run:
+    name: Run linter
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -18,5 +18,5 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
-      - name: Run tests
-        run: yarn test
+      - name: Run linter
+        run: yarn lint
