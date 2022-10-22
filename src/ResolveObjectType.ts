@@ -3,7 +3,6 @@ import { ObjectShapeLike } from './ObjectShapeLike';
 import { ResultRequiredKeys } from './ResultRequiredKeys';
 import { ResolveAliases } from './ResolveAliases';
 import { ResultOptionalKeys } from './ResultOptionalKeys';
-import { CoreTypeOf } from './CoreTypeOf';
 
 /**
  * Resolves the type of an object based on some shape type.
