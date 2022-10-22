@@ -2,6 +2,7 @@ import { assertEqualTypes } from '../utils/assertEqualTypes';
 import { test } from '../utils/test';
 import type { Derive } from '../src/Derive';
 import type { Auto } from '../src/Auto';
+import { Alias } from '../src/Alias';
 
 // Test data (with recursive & mutually recursive types)
 type User = {
@@ -99,10 +100,14 @@ test('Derive', [
     { isActive?: boolean; synopsis: string | null }
   >(),
 
-  // Supports aliases
+  // Supports nested derives
   assertEqualTypes<
     Derive<Book, { isdn: Auto; someAlias: Derive<Book['isdn']> }>,
     { isdn: number; someAlias: number }
+  >(),
+  assertEqualTypes<
+    Derive<Book, { isdn: Auto; someAlias: Derive<User['note']> }>,
+    { isdn: number; someAlias: string | undefined }
   >(),
   assertEqualTypes<
     Derive<Book, { isdn: Auto; someAlias: Derive<Book['isdn'], Auto | null> }>,
@@ -130,6 +135,51 @@ test('Derive', [
         | {
             id: number;
             note?: string | undefined;
+          }
+        | undefined;
+    }
+  >(),
+
+  // Supports aliases
+  assertEqualTypes<
+    Derive<Book, { isdn: Auto; someAlias: Alias<Book, 'isdn'> }>,
+    { isdn: number; someAlias: number }
+  >(),
+  assertEqualTypes<
+    Derive<Book, { isdn: Auto; someAlias: Alias<User, 'note'> }>,
+    { isdn: number; someAlias?: string | undefined }
+  >(),
+  assertEqualTypes<
+    Derive<Book, { isdn: Auto; someAlias: Alias<Book, 'isdn', Auto | null> }>,
+    { isdn: number; someAlias: number | null }
+  >(),
+  assertEqualTypes<
+    Derive<Book, { isdn: Auto; someAlias: Alias<Book, 'isdn'> | null }>,
+    { isdn: number; someAlias: number | null }
+  >(),
+  assertEqualTypes<
+    Derive<Book, { isdn: Auto; someAlias?: Alias<Book, 'isdn', Auto | null> }>,
+    { isdn: number; someAlias?: number | null }
+  >(),
+  assertEqualTypes<
+    Derive<
+      Book,
+      {
+        isdn: Auto;
+        someAlias?: Alias<
+          Book,
+          'author',
+          { id: Auto; note: Auto; someOtherAlias: Alias<User, 'name'> }
+        >;
+      }
+    >,
+    {
+      isdn: number;
+      someAlias?:
+        | {
+            id: number;
+            note?: string | undefined;
+            someOtherAlias: string;
           }
         | undefined;
     }

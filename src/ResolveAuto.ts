@@ -8,20 +8,20 @@ import type { ShapeLike } from './ShapeLike';
  *
  * @package
  */
-export type ResolveType<
+export type ResolveAuto<
   BaseFieldType,
   ShapeType extends ShapeLike<BaseFieldType>,
 > = BaseFieldType extends null | undefined
   ?
-      | ResolveType<NonNullable<BaseFieldType>, ShapeType>
+      | ResolveAuto<NonNullable<BaseFieldType>, ShapeType>
       | Extract<BaseFieldType, null | undefined>
   : BaseFieldType extends Array<infer ElementType>
-  ? Array<ResolveType<ElementType, ShapeType>>
+  ? Array<ResolveAuto<ElementType, ShapeType>>
   : BaseFieldType extends Record<symbol, unknown>
   ? ResolveObjectType<BaseFieldType, ShapeType>
   : ShapeType extends null | undefined
   ?
-      | ResolveType<BaseFieldType, NonNullable<ShapeType>>
+      | ResolveAuto<BaseFieldType, NonNullable<ShapeType>>
       | Extract<ShapeType, null | undefined>
   : ShapeType extends Auto
   ? BaseFieldType

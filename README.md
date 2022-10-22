@@ -41,6 +41,7 @@ type Book = {
   isdn: number;
   synopsis: string | null;
   title: string | null | undefined;
+  subtitle?: string | null;
 };
 ```
 
@@ -145,10 +146,81 @@ type Result = Derive<
 >;
 ```
 
+### Using nested derives
+
+You can use `Derive` inside another `Derive` as follows:
+
+```typescript
+type Result = Derive<
+  User,
+  {
+    id: Auto;
+    name: Auto;
+    aliasOfBestFriend: Derive<
+      User['bestFriend'],
+      {
+        name: Auto;
+      }
+    >;
+  }
+>;
+```
+
+to get this:
+
+```typescript
+type Result = {
+  id: number;
+  name: string;
+  aliasOfBestFriend:
+    | {
+        name: string;
+      }
+    | undefined;
+};
+```
+
+### Aliases
+
+You can alias a field from another type and infer nullability and optionality using `Alias` like this:
+
+```typescript
+type Result = Derive<
+  User,
+  {
+    id: Auto;
+    alias: Alias<Book, 'subtitle'>;
+  }
+>;
+```
+
+which will result in:
+
+```typescript
+type Result = { alias?: string | null };
+```
+
+Notice that this is different from using a nested derive because nested derives **do not** infer optionality:
+
+```typescript
+type Result = Derive<
+  User,
+  {
+    id: Auto;
+    alias: Derive<Book, 'subtitle', Auto>;
+  }
+>;
+```
+
+results in:
+
+```typescript
+type Result = { alias: string | null };
+```
+
 ## Credits
 
 Special thanks to:
 
 - [Perdoo](https://www.perdoo.com/) for sponsoring the initial research & implementation
 - [Szaman](https://github.com/szamanr) for the initial code review
-- [The Guild](the-guild.dev) for building [GraphQL Code Generator](https://github.com/dotansimha/graphql-code-generator)
