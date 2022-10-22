@@ -1,4 +1,4 @@
-import type { ShapeLike } from './ShapeLike';
+import type { ObjectShapeLike } from './ObjectShapeLike';
 
 /**
  * Type used to define a shape that can then be reused as a `Derive` shape
@@ -16,5 +16,5 @@ import type { ShapeLike } from './ShapeLike';
  */
 export type Shape<
   BaseType extends Record<symbol, unknown>,
-  ShapeType extends ShapeLike<BaseType>,
+  ShapeType extends ObjectShapeLike<BaseType>,
 > = ShapeType;

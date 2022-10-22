@@ -1,18 +1,18 @@
 import type { OptionalKeysOf } from './OptionalKeysOf';
 import type { RequiredKeysOf } from './RequiredKeysOf';
 import type { ResolveType } from './ResolveType';
-import type { ShapeLike } from './ShapeLike';
+import type { ObjectShapeLike } from './ObjectShapeLike';
 
 /**
- * Internal representation for `Derive` which is not expanded by intellisense.
+ * Resolves the type of an object based on some shape type.
  *
  * @package
  *
  * @see Derive
  */
-export type NonExpandedDerive<
+export type ResolveObjectType<
   BaseType extends Record<symbol, unknown>,
-  ShapeType extends ShapeLike<BaseType>,
+  ShapeType extends ObjectShapeLike<BaseType>,
 > = {
   [KeyType in keyof ShapeType as KeyType extends RequiredKeysOf<BaseType>
     ? KeyType

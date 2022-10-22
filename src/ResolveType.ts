@@ -1,5 +1,5 @@
 import type { Auto } from './Auto';
-import type { NonExpandedDerive } from './NonExpandedDerive';
+import type { ResolveObjectType } from './ResolveObjectType';
 import type { ShapeLike } from './ShapeLike';
 
 /**
@@ -8,22 +8,21 @@ import type { ShapeLike } from './ShapeLike';
  *
  * @package
  */
-export type ResolveType<BaseFieldType, ShapeFieldType> = BaseFieldType extends
-  | null
-  | undefined
+export type ResolveType<
+  BaseFieldType,
+  ShapeType extends ShapeLike<BaseFieldType>,
+> = BaseFieldType extends null | undefined
   ?
-      | ResolveType<NonNullable<BaseFieldType>, ShapeFieldType>
+      | ResolveType<NonNullable<BaseFieldType>, ShapeType>
       | Extract<BaseFieldType, null | undefined>
   : BaseFieldType extends Array<infer ElementType>
-  ? Array<ResolveType<ElementType, ShapeFieldType>>
+  ? Array<ResolveType<ElementType, ShapeType>>
   : BaseFieldType extends Record<symbol, unknown>
-  ? ShapeFieldType extends ShapeLike<BaseFieldType>
-    ? NonExpandedDerive<BaseFieldType, ShapeFieldType>
-    : never
-  : ShapeFieldType extends null | undefined
+  ? ResolveObjectType<BaseFieldType, ShapeType>
+  : ShapeType extends null | undefined
   ?
-      | ResolveType<BaseFieldType, NonNullable<ShapeFieldType>>
-      | Extract<ShapeFieldType, null | undefined>
-  : ShapeFieldType extends Auto
+      | ResolveType<BaseFieldType, NonNullable<ShapeType>>
+      | Extract<ShapeType, null | undefined>
+  : ShapeType extends Auto
   ? BaseFieldType
-  : ShapeFieldType;
+  : ShapeType;
