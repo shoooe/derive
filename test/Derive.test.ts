@@ -3,6 +3,7 @@ import { test } from '../utils/test';
 import { Derive } from '../src/Derive';
 import { Auto } from '../src/Auto';
 import { Alias } from '../src/Alias';
+import { assertCompilationError } from '../utils/assertCompilationError';
 
 // Test data (with recursive & mutually recursive types)
 type User = {
@@ -27,9 +28,41 @@ type Book = {
 
 test('Derive', [
   // Simple types
-  assertEqualTypes<Derive<number>, number>(),
+  // assertEqualTypes<Derive<number>, number>(),
   assertEqualTypes<Derive<number, Auto>, number>(),
   assertEqualTypes<Derive<number, Auto | null>, number | null>(),
+
+  // Compilation errors
+  assertCompilationError<
+    Derive<
+      { nested: { id: string } },
+      // @ts-expect-error: Expecting an error here because `Auto` cannot be used for nested objects
+      { nested: Auto }
+    >
+  >(),
+  assertCompilationError<
+    Derive<
+      { nested: { id: string } },
+      // @ts-expect-error: `Auto` cannot be used for objects
+      { nested: Auto }
+    >
+  >(),
+  assertCompilationError<
+    Derive<
+      { id: string },
+      // @ts-expect-error: Nested objects cannot be used for non-objects
+      {
+        id: { prop: number };
+      }
+    >
+  >(),
+  assertCompilationError<
+    Derive<
+      { nested: { id: string } },
+      // @ts-expect-error: Cannot use `Auto` for object
+      Auto
+    >
+  >(),
 
   // Scalars
   assertEqualTypes<
@@ -107,11 +140,11 @@ test('Derive', [
 
   // Supports nested derives
   assertEqualTypes<
-    Derive<Book, { isdn: Auto; someAlias: Derive<Book['isdn']> }>,
+    Derive<Book, { isdn: Auto; someAlias: Derive<Book['isdn'], Auto> }>,
     { isdn: number; someAlias: number }
   >(),
   assertEqualTypes<
-    Derive<Book, { isdn: Auto; someAlias: Derive<User['note']> }>,
+    Derive<Book, { isdn: Auto; someAlias: Derive<User['note'], Auto> }>,
     { isdn: number; someAlias: string | undefined }
   >(),
   assertEqualTypes<
@@ -119,7 +152,7 @@ test('Derive', [
     { isdn: number; someAlias: number | null }
   >(),
   assertEqualTypes<
-    Derive<Book, { isdn: Auto; someAlias: Derive<Book['isdn']> | null }>,
+    Derive<Book, { isdn: Auto; someAlias: Derive<Book['isdn'], Auto> | null }>,
     { isdn: number; someAlias: number | null }
   >(),
   assertEqualTypes<
@@ -147,11 +180,11 @@ test('Derive', [
 
   // Supports aliases
   assertEqualTypes<
-    Derive<Book, { isdn: Auto; someAlias: Alias<Book, 'isdn'> }>,
+    Derive<Book, { isdn: Auto; someAlias: Alias<Book, 'isdn', Auto> }>,
     { isdn: number; someAlias: number }
   >(),
   assertEqualTypes<
-    Derive<Book, { isdn: Auto; someAlias: Alias<User, 'note'> }>,
+    Derive<Book, { isdn: Auto; someAlias: Alias<User, 'note', Auto> }>,
     { isdn: number; someAlias?: string | undefined }
   >(),
   assertEqualTypes<
@@ -159,7 +192,7 @@ test('Derive', [
     { isdn: number; someAlias: number | null }
   >(),
   assertEqualTypes<
-    Derive<Book, { isdn: Auto; someAlias: Alias<Book, 'isdn'> | null }>,
+    Derive<Book, { isdn: Auto; someAlias: Alias<Book, 'isdn', Auto> | null }>,
     { isdn: number; someAlias: number | null }
   >(),
   assertEqualTypes<
@@ -174,7 +207,7 @@ test('Derive', [
         someAlias?: Alias<
           Book,
           'author',
-          { id: Auto; note: Auto; someOtherAlias: Alias<User, 'name'> }
+          { id: Auto; note: Auto; someOtherAlias: Alias<User, 'name', Auto> }
         >;
       }
     >,

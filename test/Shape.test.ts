@@ -4,6 +4,7 @@ import { Shape } from '../src/Shape';
 import { Auto } from '../src/Auto';
 import { Derive } from '../src/Derive';
 import { Alias } from '../src/Alias';
+import { assertCompilationError } from '../utils/assertCompilationError';
 
 type User = {
   id: number;
@@ -33,9 +34,35 @@ type UserWithFriends = Shape<
 
 type ShapeWithNoCommonFields = Shape<User, { isActive: boolean }>;
 
-type ShapeWithOnlyAliases = Shape<User, { alias: Alias<User, 'name'> }>;
+type ShapeWithOnlyAliases = Shape<User, { alias: Alias<User, 'name', Auto> }>;
 
 test('Shape', [
+  // Compilation errors
+  assertCompilationError<
+    Shape<
+      { nested: { id: string } },
+      // @ts-expect-error: Expecting an error here because `Auto` cannot be used for nested objects
+      { nested: Auto }
+    >
+  >(),
+  assertCompilationError<
+    Shape<
+      { nested: { id: string } },
+      // @ts-expect-error: `Auto` cannot be used for objects
+      { nested: Auto }
+    >
+  >(),
+  assertCompilationError<
+    Shape<
+      { id: string },
+      // @ts-expect-error: Nested objects cannot be used for non-objects
+      {
+        id: { prop: number };
+      }
+    >
+  >(),
+
+  // Shapes & shapes composition
   assertEqualTypes<Derive<User, UserDetails>, { id: number; name: string }>(),
   assertEqualTypes<
     Derive<User, UserExtra>,
