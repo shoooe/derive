@@ -21,12 +21,10 @@ type ResolveRequiredFields<
   BaseType extends Record<symbol, unknown>,
   ShapeType extends ObjectShapeLike<BaseType>,
 > = {
-  [KeyType in keyof ShapeType as KeyType extends ResultRequiredKeys<
+  [KeyType in ResultRequiredKeys<
     BaseType,
     ShapeType
-  >
-    ? KeyType
-    : never]: KeyType extends keyof BaseType
+  >]: KeyType extends keyof BaseType
     ? ResolveAuto<BaseType[KeyType], ShapeType[KeyType]>
     : ResolveAliases<ShapeType[KeyType]>;
 };
@@ -35,12 +33,10 @@ type ResolveOptionalFields<
   BaseType extends Record<symbol, unknown>,
   ShapeType extends ObjectShapeLike<BaseType>,
 > = {
-  [KeyType in keyof ShapeType as KeyType extends ResultOptionalKeys<
+  [KeyType in ResultOptionalKeys<
     BaseType,
     ShapeType
-  >
-    ? KeyType
-    : never]?: KeyType extends keyof BaseType
+  >]?: KeyType extends keyof BaseType
     ? ResolveAuto<BaseType[KeyType], ShapeType[KeyType]>
     : ResolveAliases<ShapeType[KeyType]>;
 };

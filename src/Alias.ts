@@ -1,6 +1,9 @@
 import { Auto } from './Auto';
 import { ShapeLike } from './ShapeLike';
 
+/**
+ * Marker type for an alias.
+ */
 export class Alias<
   BaseType extends Record<symbol, unknown>,
   KeyType extends keyof BaseType,
