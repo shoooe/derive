@@ -2,6 +2,7 @@ import { assertEqualTypes } from '../utils/assertEqualTypes';
 import { test } from '../utils/test';
 import type { Derive } from '../src/Derive';
 import type { Auto } from '../src/Auto';
+import { Alias } from '../src/Alias';
 
 // Test data (with recursive & mutually recursive types)
 type User = {
@@ -94,14 +95,26 @@ test('Derive', [
     Derive<Book, { isActive: boolean; synopsis: Auto }>,
     { isActive: boolean; synopsis: string | null }
   >(),
+  assertEqualTypes<
+    Derive<Book, { isActive?: boolean; synopsis: Auto }>,
+    { isActive?: boolean; synopsis: string | null }
+  >(),
 
   // Supports aliases
   assertEqualTypes<
-    Derive<Book, { isdn: Auto; someAlias: Book['isdn'] }>,
+    Derive<Book, { isdn: Auto; someAlias: Alias<Book, 'isdn', Auto> }>,
     { isdn: number; someAlias: number }
   >(),
   assertEqualTypes<
-    Derive<Book, { isdn: Auto; someAlias: Book['isdn'] | null }>,
+    Derive<Book, { isdn: Auto; someAlias: Alias<Book, 'isdn', Auto | null> }>,
     { isdn: number; someAlias: number | null }
+  >(),
+  assertEqualTypes<
+    Derive<Book, { isdn: Auto; someAlias: Alias<Book, 'isdn', Auto> | null }>,
+    { isdn: number; someAlias: number | null }
+  >(),
+  assertEqualTypes<
+    Derive<Book, { isdn: Auto; someAlias?: Alias<Book, 'isdn', Auto | null> }>,
+    { isdn: number; someAlias?: number | null }
   >(),
 ]);
