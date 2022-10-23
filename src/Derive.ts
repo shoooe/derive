@@ -1,4 +1,4 @@
-import { Auto } from './Auto';
+import { DefaultShape } from './DefaultShape';
 import { ForceIntellisenseExpansion } from './ForceIntellisenseExpansion';
 import { ResolveAuto } from './ResolveAuto';
 import { ShapeLike } from './ShapeLike';
@@ -21,5 +21,5 @@ import { ShapeLike } from './ShapeLike';
  */
 export type Derive<
   BaseType,
-  ShapeType extends ShapeLike<BaseType> = Auto,
+  ShapeType extends ShapeLike<BaseType> = DefaultShape<BaseType>,
 > = ForceIntellisenseExpansion<ResolveAuto<BaseType, ShapeType>>;

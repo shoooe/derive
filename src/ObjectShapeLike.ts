@@ -16,17 +16,9 @@ import { ShapeLike } from './ShapeLike';
  * }
  */
 export type ObjectShapeLike<BaseType extends Record<symbol, unknown>> = {
+  [KeyType in symbol as KeyType extends keyof BaseType
+    ? never
+    : KeyType]?: unknown;
+} & {
   [KeyType in keyof BaseType]?: ShapeLike<BaseType[KeyType]>;
-};
-
-/**
- * Weak types (objects that only have optional properties) are not assignable to objects
- * that have no key that intersects with keyof said object.
- * This is a workaround for making that work instead.
- *
- * @see {@link https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-4.html#weak-type-detection}
- */
-type IndexSignatureForWeakType = {
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  [propName: symbol]: never;
 };

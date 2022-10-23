@@ -1,4 +1,3 @@
-import { ObjectShapeLike } from './ObjectShapeLike';
 import { ResultOptionalKeys } from './ResultOptionalKeys';
 
 /**
@@ -9,5 +8,5 @@ import { ResultOptionalKeys } from './ResultOptionalKeys';
  */
 export type ResultRequiredKeys<
   BaseType extends Record<symbol, unknown>,
-  ShapeType extends ObjectShapeLike<BaseType>,
+  ShapeType,
 > = Exclude<keyof ShapeType, ResultOptionalKeys<BaseType, ShapeType>>;

@@ -1,5 +1,4 @@
 import { Alias } from './Alias';
-import { ObjectShapeLike } from './ObjectShapeLike';
 import { OptionalKeysOf } from './OptionalKeysOf';
 
 /**
@@ -10,7 +9,7 @@ import { OptionalKeysOf } from './OptionalKeysOf';
  */
 export type ResultOptionalKeys<
   BaseType extends Record<symbol, unknown>,
-  ShapeType extends ObjectShapeLike<BaseType>,
+  ShapeType,
 > = Exclude<
   {
     [KeyType in keyof ShapeType]: KeyType extends OptionalKeysOf<ShapeType>

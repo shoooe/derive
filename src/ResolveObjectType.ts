@@ -1,5 +1,4 @@
 import { ResolveAuto } from './ResolveAuto';
-import { ObjectShapeLike } from './ObjectShapeLike';
 import { ResultRequiredKeys } from './ResultRequiredKeys';
 import { ResolveAliases } from './ResolveAliases';
 import { ResultOptionalKeys } from './ResultOptionalKeys';
@@ -13,13 +12,13 @@ import { ResultOptionalKeys } from './ResultOptionalKeys';
  */
 export type ResolveObjectType<
   BaseType extends Record<symbol, unknown>,
-  ShapeType extends ObjectShapeLike<BaseType>,
+  ShapeType,
 > = ResolveRequiredFields<BaseType, ShapeType> &
   ResolveOptionalFields<BaseType, ShapeType>;
 
 type ResolveRequiredFields<
   BaseType extends Record<symbol, unknown>,
-  ShapeType extends ObjectShapeLike<BaseType>,
+  ShapeType,
 > = {
   [KeyType in ResultRequiredKeys<
     BaseType,
@@ -31,7 +30,7 @@ type ResolveRequiredFields<
 
 type ResolveOptionalFields<
   BaseType extends Record<symbol, unknown>,
-  ShapeType extends ObjectShapeLike<BaseType>,
+  ShapeType,
 > = {
   [KeyType in ResultOptionalKeys<
     BaseType,

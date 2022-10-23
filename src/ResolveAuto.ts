@@ -1,6 +1,5 @@
 import { Auto } from './Auto';
 import { ResolveObjectType } from './ResolveObjectType';
-import { ShapeLike } from './ShapeLike';
 
 /**
  * Resolves the field of an object given its type in the base type
@@ -8,21 +7,18 @@ import { ShapeLike } from './ShapeLike';
  *
  * @package
  */
-export type ResolveAuto<
-  BaseFieldType,
-  ShapeType extends ShapeLike<BaseFieldType>,
-> = BaseFieldType extends null | undefined
+export type ResolveAuto<BaseType, ShapeType> = BaseType extends null | undefined
   ?
-      | ResolveAuto<NonNullable<BaseFieldType>, ShapeType>
-      | Extract<BaseFieldType, null | undefined>
-  : BaseFieldType extends Array<infer ElementType>
+      | ResolveAuto<NonNullable<BaseType>, ShapeType>
+      | Extract<BaseType, null | undefined>
+  : BaseType extends Array<infer ElementType>
   ? Array<ResolveAuto<ElementType, ShapeType>>
-  : BaseFieldType extends Record<symbol, unknown>
-  ? ResolveObjectType<BaseFieldType, ShapeType>
+  : BaseType extends Record<symbol, unknown>
+  ? ResolveObjectType<BaseType, ShapeType>
   : ShapeType extends null | undefined
   ?
-      | ResolveAuto<BaseFieldType, NonNullable<ShapeType>>
+      | ResolveAuto<BaseType, NonNullable<ShapeType>>
       | Extract<ShapeType, null | undefined>
   : ShapeType extends Auto
-  ? BaseFieldType
+  ? BaseType
   : ShapeType;
