@@ -4,6 +4,8 @@
 
 Utility type to generate a type starting from another.
 
+You can see this tool as an hardcode version of `Pick`.
+
 Features:
 
 - 😎 Type safe
