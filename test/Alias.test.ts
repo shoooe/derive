@@ -1,9 +1,10 @@
 import { assertEqualTypes } from '../utils/assertEqualTypes';
 import { assertNonEqualTypes } from '../utils/assertNonEqualTypes';
-import { test } from '../utils/test';
+import { describe } from '../utils/describe';
 import { Alias } from '../src/Alias';
 import { Auto } from '../src/Auto';
 import { assertCompilationError } from '../utils/assertCompilationError';
+import { it } from '../utils/it';
 
 type User = {
   id: number;
@@ -11,44 +12,48 @@ type User = {
   bestFriend: User | null;
 };
 
-test('Alias', [
-  assertNonEqualTypes<Alias<User, 'id', Auto>, Alias<User, 'name', Auto>>(),
-  assertEqualTypes<Alias<User, 'name', Auto>, Alias<User, 'name', Auto>>(),
-  assertEqualTypes<Alias<User, 'name'>, Alias<User, 'name', Auto>>(),
+describe('Alias', [
+  it('supports scalars', [
+    assertNonEqualTypes<Alias<User, 'id', Auto>, Alias<User, 'name', Auto>>(),
+    assertEqualTypes<Alias<User, 'name', Auto>, Alias<User, 'name', Auto>>(),
+  ]),
 
-  // Compilation errors
-  assertCompilationError<
-    Alias<
-      User,
-      // @ts-expect-error: 'missing' is not a property of `User`
-      'missing',
-      Auto
-    >
-  >(),
-  assertCompilationError<
-    Alias<
-      User,
-      'bestFriend',
-      // @ts-expect-error: `Auto` cannot be used for objects
-      Auto
-    >
-  >(),
-  assertCompilationError<
-    Alias<
-      User,
-      'id',
-      // @ts-expect-error: Nested objects cannot be used for non-objects
-      {
-        id: number;
-      }
-    >
-  >(),
-  assertCompilationError<
-    Alias<
-      User,
-      'id',
-      // @ts-expect-error: Cannot use arrays with `Auto`
-      Auto[]
-    >
-  >(),
+  it('defaults to `Auto` for scalar types', [
+    // assertEqualTypes<Alias<User, 'name'>, Alias<User, 'name', Auto>>(),
+  ]),
+
+  it("doesn't compile when you specify a key that doesn't exist", [
+    assertCompilationError<
+      Alias<
+        User,
+        // @ts-expect-error: error
+        'missing',
+        Auto
+      >
+    >(),
+  ]),
+
+  it("doesn't compile when you specify `Auto` for an object like type", [
+    assertCompilationError<
+      Alias<
+        User,
+        'bestFriend',
+        // @ts-expect-error: error
+        Auto
+      >
+    >(),
+  ]),
+
+  it("doesn't compile when you specify a nested shape for a scalar field", [
+    assertCompilationError<
+      Alias<
+        User,
+        'id',
+        // @ts-expect-error: error
+        {
+          id: Auto;
+        }
+      >
+    >(),
+  ]),
 ]);

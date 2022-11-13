@@ -9,7 +9,4 @@ import { OptionalKeysOf } from './OptionalKeysOf';
  * type Type = { a: number; b?: string; c?: string | null; d: number | null | undefined }
  * type Result = RequiredKeysOf<Type>; // 'a' | 'd'
  */
-export type RequiredKeysOf<Type extends object> = Exclude<
-  keyof Type,
-  OptionalKeysOf<Type>
->;
+export type RequiredKeysOf<Type> = Exclude<keyof Type, OptionalKeysOf<Type>>;

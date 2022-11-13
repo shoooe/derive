@@ -3,5 +3,5 @@
  * type.
  **/
 export class Auto {
-  private __nominal!: void;
+  private __auto!: void;
 }

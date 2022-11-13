@@ -6,4 +6,4 @@ import { ElementTypeOf } from './ElementTypeOf';
  *
  * @package
  */
-export type CoreTypeOf<BaseType> = ElementTypeOf<NonNullable<BaseType>>;
+export type CoreTypeOf<Type> = ElementTypeOf<NonNullable<Type>>;

@@ -2,6 +2,7 @@ import { ResolveAuto } from './ResolveAuto';
 import { ResultRequiredKeys } from './ResultRequiredKeys';
 import { ResolveAliases } from './ResolveAliases';
 import { ResultOptionalKeys } from './ResultOptionalKeys';
+import { ObjectLike } from './ObjectLike';
 
 /**
  * Resolves the type of an object based on some shape type.
@@ -11,31 +12,18 @@ import { ResultOptionalKeys } from './ResultOptionalKeys';
  * @package
  */
 export type ResolveObjectType<
-  BaseType extends Record<symbol, unknown>,
-  ShapeType,
-> = ResolveRequiredFields<BaseType, ShapeType> &
-  ResolveOptionalFields<BaseType, ShapeType>;
+  Target extends ObjectLike,
+  Shape,
+> = ResolveRequiredFields<Target, Shape> & ResolveOptionalFields<Target, Shape>;
 
-type ResolveRequiredFields<
-  BaseType extends Record<symbol, unknown>,
-  ShapeType,
-> = {
-  [KeyType in ResultRequiredKeys<
-    BaseType,
-    ShapeType
-  >]: KeyType extends keyof BaseType
-    ? ResolveAuto<BaseType[KeyType], ShapeType[KeyType]>
-    : ResolveAliases<ShapeType[KeyType]>;
+type ResolveRequiredFields<Target extends ObjectLike, Shape> = {
+  [KeyType in ResultRequiredKeys<Target, Shape>]: KeyType extends keyof Target
+    ? ResolveAuto<Target[KeyType], Shape[KeyType]>
+    : ResolveAliases<Shape[KeyType]>;
 };
 
-type ResolveOptionalFields<
-  BaseType extends Record<symbol, unknown>,
-  ShapeType,
-> = {
-  [KeyType in ResultOptionalKeys<
-    BaseType,
-    ShapeType
-  >]?: KeyType extends keyof BaseType
-    ? ResolveAuto<BaseType[KeyType], ShapeType[KeyType]>
-    : ResolveAliases<ShapeType[KeyType]>;
+type ResolveOptionalFields<Target extends ObjectLike, Shape> = {
+  [KeyType in ResultOptionalKeys<Target, Shape>]?: KeyType extends keyof Target
+    ? ResolveAuto<Target[KeyType], Shape[KeyType]>
+    : ResolveAliases<Shape[KeyType]>;
 };

@@ -1,31 +1,29 @@
 import { Alias } from './Alias';
+import { ObjectLike } from './ObjectLike';
 import { OptionalKeysOf } from './OptionalKeysOf';
 
 /**
- * Gives a subset of `keyof ShapeType` that should be optional in the
+ * Gives a subset of `keyof Shape` that should be optional in the
  * derive result type.
  *
  * @package
  */
-export type ResultOptionalKeys<
-  BaseType extends Record<symbol, unknown>,
-  ShapeType,
-> = Exclude<
+export type ResultOptionalKeys<Target extends ObjectLike, Shape> = Exclude<
   {
-    [KeyType in keyof ShapeType]: KeyType extends OptionalKeysOf<ShapeType>
+    [KeyType in keyof Shape]: KeyType extends OptionalKeysOf<Shape>
       ? KeyType
-      : KeyType extends OptionalKeysOf<BaseType>
+      : KeyType extends OptionalKeysOf<Target>
       ? KeyType
-      : ShapeType[KeyType] extends Alias<
-          infer AliasBaseType,
-          infer AliasKeyType,
+      : Shape[KeyType] extends Alias<
+          infer AliasTarget,
+          infer AliasKey,
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          infer _AliasShapeType
+          infer _AliasShape
         >
-      ? AliasKeyType extends OptionalKeysOf<AliasBaseType>
+      ? AliasKey extends OptionalKeysOf<AliasTarget>
         ? KeyType
         : never
       : never;
-  }[keyof ShapeType],
+  }[keyof Shape],
   undefined
 >;

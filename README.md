@@ -45,7 +45,7 @@ type Book = {
 };
 ```
 
-We can derive a subset of its properties (and extend them via):
+We can derive a subset of its properties via:
 
 ```typescript
 type Result = Derive<
@@ -59,7 +59,7 @@ type Result = Derive<
 
     // Automatically expands nullable & optional types, which means that `null`
     // and `undefined` will be added automatically to the resulting type if
-    // they existed in the root type.
+    // they existed in the target type.
     bestFriend: {
       name: Auto;
     };
@@ -67,9 +67,8 @@ type Result = Derive<
     // Automatically expands arrays as well
     friends: {
       name: Auto;
-      isActive: boolean; // This is an extra field (not coming from the root type)
+      // Supports mutually recursive types
       favoriteBook: {
-        // Supports mutually recursive types
         isdn: Auto;
         title: Auto;
         synopsis: Auto;
@@ -96,7 +95,6 @@ type Result = {
   friends:
     | {
         name: string;
-        isActive: boolean;
         favoriteBook: {
           isdn: number;
           title: string | null | undefined;
@@ -146,40 +144,6 @@ type Result = Derive<
 >;
 ```
 
-### Using nested derives
-
-You can use `Derive` inside another `Derive` as follows:
-
-```typescript
-type Result = Derive<
-  User,
-  {
-    id: Auto;
-    name: Auto;
-    aliasOfBestFriend: Derive<
-      User['bestFriend'],
-      {
-        name: Auto;
-      }
-    >;
-  }
->;
-```
-
-to get this:
-
-```typescript
-type Result = {
-  id: number;
-  name: string;
-  aliasOfBestFriend:
-    | {
-        name: string;
-      }
-    | undefined;
-};
-```
-
 ### Aliases
 
 You can alias a field from another type and infer nullability and optionality using `Alias` like this:
@@ -188,8 +152,7 @@ You can alias a field from another type and infer nullability and optionality us
 type Result = Derive<
   User,
   {
-    id: Auto;
-    alias: Alias<Book, 'subtitle'>;
+    alias: Alias<Book, 'subtitle', Auto>;
   }
 >;
 ```
@@ -198,24 +161,6 @@ which will result in:
 
 ```typescript
 type Result = { alias?: string | null };
-```
-
-Notice that this is different from using a nested derive because nested derives **do not** infer optionality:
-
-```typescript
-type Result = Derive<
-  User,
-  {
-    id: Auto;
-    alias: Derive<Book, 'subtitle', Auto>;
-  }
->;
-```
-
-results in:
-
-```typescript
-type Result = { alias: string | null };
 ```
 
 ## Credits

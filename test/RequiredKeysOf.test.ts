@@ -1,6 +1,7 @@
 import { assertEqualTypes } from '../utils/assertEqualTypes';
-import { test } from '../utils/test';
+import { it } from '../utils/it';
 import { RequiredKeysOf } from '../src/RequiredKeysOf';
+import { describe } from '../utils/describe';
 
 type Mouse = {
   a: string;
@@ -12,6 +13,8 @@ type Mouse = {
   g?: string | null | undefined;
 };
 
-test('RequiredKeysOf', [
-  assertEqualTypes<RequiredKeysOf<Mouse>, 'a' | 'b' | 'c' | 'd'>(),
+describe('RequiredKeysOf', [
+  it('returns the required keys for the given type', [
+    assertEqualTypes<RequiredKeysOf<Mouse>, 'a' | 'b' | 'c' | 'd'>(),
+  ]),
 ]);

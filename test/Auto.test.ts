@@ -1,12 +1,6 @@
 import { assertEqualTypes } from '../utils/assertEqualTypes';
-import { assertNonEqualTypes } from '../utils/assertNonEqualTypes';
-import { test } from '../utils/test';
+import { describe } from '../utils/describe';
 import { Auto } from '../src/Auto';
+import { it } from '../utils/it';
 
-export type AutoLike = typeof someSymbol;
-declare const someSymbol: unique symbol;
-
-test('Auto', [
-  assertEqualTypes<Auto, Auto>(),
-  assertNonEqualTypes<Auto, AutoLike>(),
-]);
+describe('Auto', [it('is equal to itself', [assertEqualTypes<Auto, Auto>()])]);

@@ -1,10 +1,10 @@
-import { DefaultShape } from './DefaultShape';
+import { AutocompleteHelper } from './AutocompleteHelper';
 import { ForceIntellisenseExpansion } from './ForceIntellisenseExpansion';
 import { ResolveAuto } from './ResolveAuto';
-import { ShapeLike } from './ShapeLike';
+import { ValidShape } from './ValidShape';
 
 /**
- * Utility used to derive a type from another type.
+ * Utility  to derive a type from another type.
  *
  * @example
  * type Result = Derive<
@@ -20,6 +20,6 @@ import { ShapeLike } from './ShapeLike';
  * >;
  */
 export type Derive<
-  BaseType,
-  ShapeType extends ShapeLike<BaseType> = DefaultShape<BaseType>,
-> = ForceIntellisenseExpansion<ResolveAuto<BaseType, ShapeType>>;
+  Base,
+  Shape extends AutocompleteHelper<Base> & ValidShape<Base, Shape>,
+> = ForceIntellisenseExpansion<ResolveAuto<Base, Shape>>; // @todo Resolve Auto here?

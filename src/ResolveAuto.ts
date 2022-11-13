@@ -1,4 +1,5 @@
 import { Auto } from './Auto';
+import { ObjectLike } from './ObjectLike';
 import { ResolveObjectType } from './ResolveObjectType';
 
 /**
@@ -7,18 +8,12 @@ import { ResolveObjectType } from './ResolveObjectType';
  *
  * @package
  */
-export type ResolveAuto<BaseType, ShapeType> = BaseType extends null | undefined
-  ?
-      | ResolveAuto<NonNullable<BaseType>, ShapeType>
-      | Extract<BaseType, null | undefined>
-  : BaseType extends Array<infer ElementType>
-  ? Array<ResolveAuto<ElementType, ShapeType>>
-  : BaseType extends Record<symbol, unknown>
-  ? ResolveObjectType<BaseType, ShapeType>
-  : ShapeType extends null | undefined
-  ?
-      | ResolveAuto<BaseType, NonNullable<ShapeType>>
-      | Extract<ShapeType, null | undefined>
-  : ShapeType extends Auto
-  ? BaseType
-  : ShapeType;
+export type ResolveAuto<Target, Shape> = Target extends null | undefined
+  ? ResolveAuto<NonNullable<Target>, Shape> | Extract<Target, null | undefined>
+  : Target extends Array<infer ElementType>
+  ? Array<ResolveAuto<ElementType, Shape>>
+  : Target extends ObjectLike
+  ? ResolveObjectType<Target, Shape>
+  : Shape extends Auto
+  ? Target
+  : Shape;

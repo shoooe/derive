@@ -2,20 +2,14 @@ import { Alias } from './Alias';
 import { ResolveAuto } from './ResolveAuto';
 
 /**
- * Resolves aliases from `ShapeType`.
+ * Resolves aliases given a shape.
  *
  * @package
  */
-export type ResolveAliases<ShapeType> = ShapeType extends null | undefined
-  ?
-      | ResolveAliases<NonNullable<ShapeType>>
-      | Extract<ShapeType, null | undefined>
-  : ShapeType extends Array<infer ElementType>
-  ? Array<ResolveAliases<ElementType>>
-  : ShapeType extends Alias<
-      infer AliasBaseType,
-      infer AliasKeyType,
-      infer AliasShapeType
-    >
+export type ResolveAliases<Shape> = Shape extends Alias<
+  infer AliasBaseType,
+  infer AliasKeyType,
+  infer AliasShapeType
+>
   ? ResolveAuto<AliasBaseType[AliasKeyType], AliasShapeType>
-  : ShapeType;
+  : Shape;

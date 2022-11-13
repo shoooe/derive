@@ -1,17 +1,17 @@
-import { DefaultShape } from './DefaultShape';
-import { ShapeLike } from './ShapeLike';
+import { AutocompleteHelper } from './AutocompleteHelper';
+import { ObjectLike } from './ObjectLike';
+import { ValidShape } from './ValidShape';
 
 /**
  * Marker type for an alias.
  */
 export class Alias<
-  BaseType extends Record<symbol, unknown>,
-  KeyType extends keyof BaseType,
-  ShapeType extends ShapeLike<BaseType[KeyType]> = DefaultShape<
-    BaseType[KeyType]
-  >,
+  Target extends ObjectLike,
+  Key extends keyof Target,
+  Shape extends AutocompleteHelper<Target[Key]> &
+    ValidShape<Target[Key], Shape>,
 > {
-  private __baseType!: BaseType;
-  private __keyType!: KeyType;
-  private __shapeType!: ShapeType;
+  private __target!: Target;
+  private __key!: Key;
+  private __shape!: Shape;
 }
