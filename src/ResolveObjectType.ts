@@ -6,7 +6,7 @@ import { RecordLike } from './RecordLike';
 
 /**
  * Resolves the type of an object based on some shape type.
- * Takes into consideration the optionality of fields from both the base
+ * Takes into consideration the optionality of fields from both the target
  * and shape type.
  *
  * @package

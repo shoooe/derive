@@ -3,7 +3,7 @@ import { RecordLike } from './RecordLike';
 import { ResolveObjectType } from './ResolveObjectType';
 
 /**
- * Resolves the field of an object given its type in the base type
+ * Resolves the field of a record given its type in the target type
  * and its type in the corresponding shape.
  *
  * @package

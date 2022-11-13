@@ -47,7 +47,7 @@ describe('ResultOptionalKeys', [
   ]),
 
   it(
-    'includes keys that are optional in the base type and `Auto` in the shape type',
+    'includes keys that are optional in the target type and `Auto` in the shape type',
     [
       assertEqualTypes<
         ResultOptionalKeys<{ id?: number; test: string }, { id: Auto }>,
@@ -57,7 +57,7 @@ describe('ResultOptionalKeys', [
   ),
 
   it(
-    'includes keys that are optional both in the base type and in the shape type',
+    'includes keys that are optional both in the target type and in the shape type',
     [
       assertEqualTypes<
         ResultOptionalKeys<{ id?: number; test: string }, { id?: Auto }>,
@@ -67,7 +67,7 @@ describe('ResultOptionalKeys', [
   ),
 
   it(
-    'ignores keys that are not in the base type and are aliases of a required field',
+    'ignores keys that are not in the target type and are aliases of a required field',
     [
       assertEqualTypes<
         ResultOptionalKeys<
@@ -80,7 +80,7 @@ describe('ResultOptionalKeys', [
   ),
 
   it(
-    'includes keys that are not in the base type and are aliases of an optional field',
+    'includes keys that are not in the target type and are aliases of an optional field',
     [
       assertEqualTypes<
         ResultOptionalKeys<

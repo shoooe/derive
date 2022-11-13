@@ -16,6 +16,6 @@ import { ValidShape } from './ValidShape';
  * }>;
  */
 export type Shape<
-  Base,
-  Shape extends AutocompleteHelper<Base> & ValidShape<Base, Shape>,
+  Target,
+  Shape extends AutocompleteHelper<Target> & ValidShape<Target, Shape>,
 > = Shape;

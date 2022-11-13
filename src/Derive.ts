@@ -15,11 +15,10 @@ import { ValidShape } from './ValidShape';
  *      bestFriend: {
  *        id: Auto;
  *      };
- *      extraField?: boolean;
  *   }
  * >;
  */
 export type Derive<
-  Base,
-  Shape extends AutocompleteHelper<Base> & ValidShape<Base, Shape>,
-> = ForceIntellisenseExpansion<ResolveAuto<Base, Shape>>; // @todo Resolve Auto here?
+  Target,
+  Shape extends AutocompleteHelper<Target> & ValidShape<Target, Shape>,
+> = ForceIntellisenseExpansion<ResolveAuto<Target, Shape>>;

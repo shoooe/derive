@@ -7,9 +7,9 @@ import { ResolveAuto } from './ResolveAuto';
  * @package
  */
 export type ResolveAliases<Shape> = Shape extends Alias<
-  infer AliasBaseType,
-  infer AliasKeyType,
-  infer AliasShapeType
+  infer AliasTarget,
+  infer AliasKey,
+  infer AliasShape
 >
-  ? ResolveAuto<AliasBaseType[AliasKeyType], AliasShapeType>
+  ? ResolveAuto<AliasTarget[AliasKey], AliasShape>
   : Shape;
