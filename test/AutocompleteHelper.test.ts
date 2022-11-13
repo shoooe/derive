@@ -38,14 +38,14 @@ describe('AutocompleteHelper', [
     >(),
   ]),
 
-  it('supports nested objects', [
+  it('supports nested records', [
     assertEqualTypes<
       AutocompleteHelper<{ friend: { name: string } }>,
       { friend?: { name?: Auto | Alias<any, any, any> } }
     >(),
   ]),
 
-  it('supports nested objects with null or undefined', [
+  it('supports nested records with null or undefined', [
     assertEqualTypes<
       AutocompleteHelper<{
         friend: { name: string } | null;
@@ -80,7 +80,7 @@ describe('AutocompleteHelper', [
     >(),
   ]),
 
-  it('supports object arrays', [
+  it('supports arrays of records', [
     assertEqualTypes<
       AutocompleteHelper<{ id: number; friend: { name: string }[] }>,
       {

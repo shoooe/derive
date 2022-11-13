@@ -47,7 +47,7 @@ describe('Shape', [
       >
     >(),
   ]),
-  it("doesn't allow shape objects for scalars", [
+  it("doesn't allow record-like shapes for scalars", [
     assertCompilationError<
       Shape<
         { id: string },

@@ -83,7 +83,7 @@ describe('Derive', [
     >(),
   ]),
 
-  it('supports objects', [
+  it('supports records', [
     assertEqualTypes<
       Derive<User, { manager: { id: Auto } }>,
       { manager: { id: number } }
@@ -123,6 +123,12 @@ describe('Derive', [
     assertEqualTypes<
       Derive<Book, { isdn: Auto; someAlias: Alias<Book, 'isdn', Auto> }>,
       { isdn: number; someAlias: number }
+    >(),
+  ]),
+  it('supports aliases that override existing fields', [
+    assertEqualTypes<
+      Derive<Book, { isdn: Auto; author: Alias<Book, 'isdn', Auto> }>,
+      { isdn: number; author: number }
     >(),
   ]),
   it('infers optionality for fields with aliases', [

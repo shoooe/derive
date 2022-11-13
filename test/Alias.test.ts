@@ -33,7 +33,7 @@ describe('Alias', [
     >(),
   ]),
 
-  it("doesn't compile when you specify `Auto` for an object like type", [
+  it("doesn't compile when you specify `Auto` for a record like type", [
     assertCompilationError<
       Alias<
         User,

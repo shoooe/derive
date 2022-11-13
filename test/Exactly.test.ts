@@ -5,14 +5,14 @@ import { it } from '../utils/it';
 
 type Extends<A, B> = A extends B ? true : false;
 
-type ObjectWithFields = { id: number; name: number | null };
+type RecordWithFields = { id: number; name: number | null };
 
 describe('Exactly', [
   it('extends exact types', [
     assertEqualTypes<
       Extends<
         { id: number; name: number | null },
-        Exactly<ObjectWithFields, { id: number; name: number | null }>
+        Exactly<RecordWithFields, { id: number; name: number | null }>
       >,
       true
     >(),
@@ -21,14 +21,14 @@ describe('Exactly', [
     assertEqualTypes<
       Extends<
         { id: number; name: number },
-        Exactly<ObjectWithFields, { id: number; name: number }>
+        Exactly<RecordWithFields, { id: number; name: number }>
       >,
       true
     >(),
   ]),
   it("doesn't extend if a field is missing", [
     assertEqualTypes<
-      Extends<{ id: number }, Exactly<ObjectWithFields, { id: number }>>,
+      Extends<{ id: number }, Exactly<RecordWithFields, { id: number }>>,
       false
     >(),
   ]),
@@ -36,7 +36,7 @@ describe('Exactly', [
     assertEqualTypes<
       Extends<
         { id: number; name: number | 'extra' },
-        Exactly<ObjectWithFields, { id: number; name: number | 'extra' }>
+        Exactly<RecordWithFields, { id: number; name: number | 'extra' }>
       >,
       false
     >(),
