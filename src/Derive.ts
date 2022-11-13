@@ -24,37 +24,45 @@ import { OptionalKeysOf } from './OptionalKeysOf';
 export type Derive<
   Target,
   Shape extends AutocompleteHelper<Target> & ValidShape<Target, Shape>,
-> = ForceIntellisenseExpansion<ResolveAuto<Target, Shape>>;
+> = ForceIntellisenseExpansion<ResolveAutos<Target, ResolveAliases<Shape>>>;
 
+/**
+ * Only resolves aliases.
+ *
+ * @package
+ */
 type ResolveAliases<Shape> = Shape extends Alias<
   infer AliasTarget,
   infer AliasKey,
   infer AliasShape
 >
-  ? ResolveAuto<AliasTarget[AliasKey], AliasShape>
+  ? ResolveAutos<AliasTarget[AliasKey], AliasShape>
   : Shape;
 
-type ResolveAuto<Target, Shape> = Shape extends Alias<
-  infer AliasTarget,
-  infer AliasKey,
-  infer AliasShape
->
-  ? ResolveAuto<AliasTarget[AliasKey], AliasShape>
-  : Target extends null | undefined
-  ? ResolveAuto<NonNullable<Target>, Shape> | Extract<Target, null | undefined>
+/**
+ * Resolves a shape.
+ *
+ * @package
+ */
+type ResolveAutos<Target, Shape> = Target extends null | undefined
+  ? ResolveAutos<NonNullable<Target>, Shape> | Extract<Target, null | undefined>
   : Target extends Array<infer ElementType>
-  ? Array<ResolveAuto<ElementType, Shape>>
-  : Target extends RecordLike
-  ? Shape extends RecordLike
-    ? ResolveObjectType<Target, Shape>
-    : // Target is a record but shape isn't.
-      // This means that the shape is `Auto` when target is
-      // a record, which makes no sense and is not allowed by `ValidShape`.
-      never
+  ? Array<ResolveAutos<ElementType, Shape>>
   : Shape extends Auto
   ? Target
+  : Shape extends RecordLike
+  ? Target extends RecordLike
+    ? ResolveObjectType<Target, Shape>
+    : Shape
   : Shape;
 
+/**
+ * Resolves the type of an object based on some shape type.
+ * Takes into consideration the optionality of fields from both the target
+ * and shape type.
+ *
+ * @package
+ */
 type ResolveObjectType<
   Target extends RecordLike,
   Shape extends RecordLike,
@@ -65,7 +73,7 @@ type ResolveRequiredFields<
   Shape extends RecordLike,
 > = {
   [Key in ResultRequiredKeys<BaseType, Shape>]: Key extends keyof BaseType
-    ? ResolveAuto<BaseType[Key], Shape[Key]>
+    ? ResolveAutos<BaseType[Key], ResolveAliases<Shape[Key]>>
     : ResolveAliases<Shape[Key]>;
 };
 
@@ -74,10 +82,16 @@ type ResolveOptionalFields<
   Shape extends RecordLike,
 > = {
   [Key in ResultOptionalKeys<BaseType, Shape>]?: Key extends keyof BaseType
-    ? ResolveAuto<BaseType[Key], Shape[Key]>
+    ? ResolveAutos<BaseType[Key], ResolveAliases<Shape[Key]>>
     : ResolveAliases<Shape[Key]>;
 };
 
+/**
+ * Gives a subset of `keyof ShapeType` that should be optioal in the
+ * derived result type.
+ *
+ * @package
+ */
 type ResultOptionalKeys<
   Target extends RecordLike,
   Shape extends RecordLike,
@@ -99,6 +113,12 @@ type ResultOptionalKeys<
   undefined
 >;
 
+/**
+ * Gives a subset of `keyof ShapeType` that should be required in the
+ * derived result type.
+ *
+ * @package
+ */
 type ResultRequiredKeys<
   Target extends RecordLike,
   Shape extends RecordLike,

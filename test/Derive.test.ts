@@ -120,6 +120,7 @@ describe('Derive', [
   ]),
 
   it('supports aliases', [
+    assertEqualTypes<Derive<string, Alias<Book, 'isdn', Auto>>, number>(),
     assertEqualTypes<
       Derive<Book, { isdn: Auto; someAlias: Alias<Book, 'isdn', Auto> }>,
       { isdn: number; someAlias: number }
