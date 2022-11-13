@@ -1,5 +1,5 @@
 import { Alias } from './Alias';
-import { ObjectLike } from './ObjectLike';
+import { RecordLike } from './RecordLike';
 import { OptionalKeysOf } from './OptionalKeysOf';
 
 /**
@@ -8,7 +8,7 @@ import { OptionalKeysOf } from './OptionalKeysOf';
  *
  * @package
  */
-export type ResultOptionalKeys<Target extends ObjectLike, Shape> = Exclude<
+export type ResultOptionalKeys<Target extends RecordLike, Shape> = Exclude<
   {
     [KeyType in keyof Shape]: KeyType extends OptionalKeysOf<Shape>
       ? KeyType

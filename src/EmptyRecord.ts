@@ -1,1 +1,1 @@
-export type EmptyRecord = Record<symbol, never>;
+export type EmptyRecord = Record<string, never>;

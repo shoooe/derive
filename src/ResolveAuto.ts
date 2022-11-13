@@ -1,5 +1,5 @@
 import { Auto } from './Auto';
-import { ObjectLike } from './ObjectLike';
+import { RecordLike } from './RecordLike';
 import { ResolveObjectType } from './ResolveObjectType';
 
 /**
@@ -12,7 +12,7 @@ export type ResolveAuto<Target, Shape> = Target extends null | undefined
   ? ResolveAuto<NonNullable<Target>, Shape> | Extract<Target, null | undefined>
   : Target extends Array<infer ElementType>
   ? Array<ResolveAuto<ElementType, Shape>>
-  : Target extends ObjectLike
+  : Target extends RecordLike
   ? ResolveObjectType<Target, Shape>
   : Shape extends Auto
   ? Target

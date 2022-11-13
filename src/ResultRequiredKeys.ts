@@ -1,4 +1,4 @@
-import { ObjectLike } from './ObjectLike';
+import { RecordLike } from './RecordLike';
 import { ResultOptionalKeys } from './ResultOptionalKeys';
 
 /**
@@ -7,7 +7,7 @@ import { ResultOptionalKeys } from './ResultOptionalKeys';
  *
  * @package
  */
-export type ResultRequiredKeys<Target extends ObjectLike, Shape> = Exclude<
+export type ResultRequiredKeys<Target extends RecordLike, Shape> = Exclude<
   keyof Shape,
   ResultOptionalKeys<Target, Shape>
 >;

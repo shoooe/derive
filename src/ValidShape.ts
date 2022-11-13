@@ -3,7 +3,7 @@ import { Alias } from './Alias';
 import { Auto } from './Auto';
 import { CoreTypeOf } from './CoreTypeOf';
 import { Exactly } from './Exactly';
-import { ObjectLike } from './ObjectLike';
+import { RecordLike } from './RecordLike';
 
 /**
  * Usually used in `extends` clause to check that a shape is a valid shape
@@ -11,9 +11,9 @@ import { ObjectLike } from './ObjectLike';
  *
  * @package
  */
-export type ValidShape<Target, Shape> = CoreTypeOf<Target> extends ObjectLike
+export type ValidShape<Target, Shape> = CoreTypeOf<Target> extends RecordLike
   ? // The array here is needed to avoid errors about circular constraints.
-    [Shape] extends [ObjectLike]
+    [Shape] extends [RecordLike]
     ? // Exactly here is needed to specify that no other keys are allowed.
       Exactly<
         // For keys that are shared between target and shape we dive deeper.

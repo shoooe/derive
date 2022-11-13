@@ -2,7 +2,7 @@
 import { Alias } from './Alias';
 import { Auto } from './Auto';
 import { CoreTypeOf } from './CoreTypeOf';
-import { ObjectLike } from './ObjectLike';
+import { RecordLike } from './RecordLike';
 
 /**
  * Represents the possible shape values for a given target type fields.
@@ -12,7 +12,7 @@ import { ObjectLike } from './ObjectLike';
  *
  * @package
  */
-export type AutocompleteHelper<Target> = CoreTypeOf<Target> extends ObjectLike
+export type AutocompleteHelper<Target> = CoreTypeOf<Target> extends RecordLike
   ? {
       [Key in keyof CoreTypeOf<Target>]?: AutocompleteHelper<
         CoreTypeOf<Target>[Key]

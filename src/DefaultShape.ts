@@ -1,6 +1,6 @@
 import { Auto } from './Auto';
 import { CoreTypeOf } from './CoreTypeOf';
-import { ObjectLike } from './ObjectLike';
+import { RecordLike } from './RecordLike';
 import { EmptyRecord } from './EmptyRecord';
 
 /**
@@ -9,6 +9,6 @@ import { EmptyRecord } from './EmptyRecord';
  *
  * @package
  */
-export type DefaultShape<Target> = CoreTypeOf<Target> extends ObjectLike
+export type DefaultShape<Target> = CoreTypeOf<Target> extends RecordLike
   ? EmptyRecord
   : Auto;

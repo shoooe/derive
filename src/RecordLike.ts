@@ -5,4 +5,4 @@
  * @package
  */
 // @todo rename to RecordLike
-export type ObjectLike = Record<string, unknown>;
+export type RecordLike = Record<string, unknown>;

@@ -1,4 +1,4 @@
-import { ObjectLike } from './ObjectLike';
+import { RecordLike } from './RecordLike';
 
 /**
  * This is a no-op type that forces intellisense to evaluate the type
@@ -8,7 +8,7 @@ import { ObjectLike } from './ObjectLike';
  *
  * @see {@link https://stackoverflow.com/a/57683652/15992045}
  */
-export type ForceIntellisenseExpansion<Type> = Type extends ObjectLike
+export type ForceIntellisenseExpansion<Type> = Type extends RecordLike
   ? { [Key in keyof Type]: ForceIntellisenseExpansion<Type[Key]> }
   : Type extends Array<infer Element>
   ? Array<ForceIntellisenseExpansion<Element>>
