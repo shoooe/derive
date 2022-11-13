@@ -4,5 +4,4 @@
  *
  * @package
  */
-// @todo rename to RecordLike
 export type RecordLike = Record<string, unknown>;
