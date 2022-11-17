@@ -6,8 +6,6 @@ import { assertEqualTypes } from '../utils/assertEqualTypes';
 import { describe } from '../utils/describe';
 import { it } from '../utils/it';
 
-type X = AutocompleteHelper<{ id: number }>;
-
 describe('AutocompleteHelper', [
   it('supports scalar types', [
     assertEqualTypes<
