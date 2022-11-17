@@ -46,15 +46,8 @@
     ],
     "plugins": [
       "@semantic-release/commit-analyzer",
-      [
-        "@semantic-release/git",
-        {
-          "assets": [
-            "package.json"
-          ],
-          "message": "chore(release): ${nextRelease.version}"
-        }
-      ]
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/npm"
     ]
   }
 }
