@@ -1,5 +1,6 @@
 branches:
-  - 'features/add-cd'
+  - name: 'features/add-cd'
+    prerelease: true
 debug: true
 ci: true
 dryRun: true
