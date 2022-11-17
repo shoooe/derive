@@ -4,6 +4,6 @@
  *
  * @package
  */
-export type ElementTypeOf<Type> = Type extends Array<infer ElementType>
-  ? ElementType
+export type ElementTypeOf<Type> = Type extends Array<infer Element>
+  ? Element
   : Type;

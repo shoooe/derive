@@ -31,7 +31,7 @@
     "build:clean": "tsc --build --clean",
     "build:compile": "tsc",
     "build": "yarn build:clean && yarn build:compile",
-    "test": "yarn tsc --noEmit",
+    "test": "yarn tsc --noEmit -p ./tsconfig.test.json",
     "lint": "eslint .",
     "prepare": "yarn build",
     "prepublishOnly": "yarn lint"

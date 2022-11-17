@@ -1,20 +1,21 @@
-import type { ObjectShapeLike } from './ObjectShapeLike';
+import { AutocompleteHelper } from './AutocompleteHelper';
+import { ValidShape } from './ValidShape';
 
 /**
  * Type used to define a shape that can then be reused as a `Derive` shape
  * or inside other shapes.
  *
  * @example
- * type Custom = Shape<Base, {
- *     first: Auto;
- *     second: Auto | null;
- *     third: {
- *         fourth: Auto;
- *         fifth: boolean;
+ * type BookShape = Shape<Book, {
+ *     id: Auto;
+ *     title: Auto;
+ *     author: {
+ *         id: Auto;
+ *         name: Alias<User, 'name'>
  *     }
  * }>;
  */
 export type Shape<
-  BaseType extends Record<symbol, unknown>,
-  ShapeType extends ObjectShapeLike<BaseType>,
-> = ShapeType;
+  Target,
+  Shape extends AutocompleteHelper<Target> & ValidShape<Target, Shape>,
+> = Shape;

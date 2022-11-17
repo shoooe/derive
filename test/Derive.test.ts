@@ -1,8 +1,10 @@
 import { assertEqualTypes } from '../utils/assertEqualTypes';
-import { test } from '../utils/test';
-import type { Derive } from '../src/Derive';
-import type { Auto } from '../src/Auto';
+import { describe } from '../utils/describe';
+import { it } from '../utils/it';
+import { Derive } from '../src/Derive';
+import { Auto } from '../src/Auto';
 import { Alias } from '../src/Alias';
+import { assertCompilationError } from '../utils/assertCompilationError';
 
 // Test data (with recursive & mutually recursive types)
 type User = {
@@ -25,163 +27,138 @@ type Book = {
   title: string | null | undefined;
 };
 
-test('Derive', [
-  // Scalars
-  assertEqualTypes<
-    Derive<User, { id: Auto; name: Auto }>,
-    { id: number; name: string }
-  >(),
-  assertEqualTypes<
-    Derive<Book, { title: Auto }>,
-    { title: string | null | undefined }
-  >(),
-  assertEqualTypes<
-    Derive<Book, { synopsis: Auto }>,
-    { synopsis: string | null }
-  >(),
-  assertEqualTypes<
-    Derive<User, { note: Auto }>,
-    { note?: string | undefined }
-  >(),
-  assertEqualTypes<
-    Derive<User, { editorNote: Auto }>,
-    { editorNote?: string | null }
-  >(),
+describe('Derive', [
+  it('simply resolves the original type with scalars and `Auto`', [
+    assertEqualTypes<Derive<number, Auto>, number>(),
+    assertEqualTypes<Derive<number | null, Auto>, number | null>(),
+    assertEqualTypes<Derive<number | undefined, Auto>, number | undefined>(),
+    assertEqualTypes<
+      Derive<number | null | undefined, Auto>,
+      number | null | undefined
+    >(),
+  ]),
 
-  // Objects
-  assertEqualTypes<
-    Derive<User, { manager: { id: Auto } }>,
-    { manager: { id: number } }
-  >(),
-  assertEqualTypes<
-    Derive<User, { bestFriend: { id: Auto } }>,
-    { bestFriend: { id: number } | undefined }
-  >(),
+  it("doesn't allow `Auto` for object like types", [
+    assertCompilationError<
+      Derive<
+        { nested: { id: string } },
+        // @ts-expect-error: error
+        { nested: Auto }
+      >
+    >(),
+  ]),
 
-  // Arrays
-  assertEqualTypes<
-    Derive<User, { friends: { id: Auto } }>,
-    { friends: { id: number }[] }
-  >(),
-  assertEqualTypes<
-    Derive<User, { parents: { id: Auto } }>,
-    { parents: { id: number }[] | null }
-  >(),
+  it("doesn't allow nested shapes for scalar types", [
+    assertCompilationError<
+      Derive<
+        { id: string },
+        // @ts-expect-error: error
+        {
+          id: { prop: Auto };
+        }
+      >
+    >(),
+  ]),
 
-  // Recursion
-  assertEqualTypes<
-    Derive<User, { parents: { manager: { id: Auto } } }>,
-    { parents: { manager: { id: number } }[] | null }
-  >(),
+  it('supports scalars', [
+    assertEqualTypes<
+      Derive<User, { id: Auto; name: Auto }>,
+      { id: number; name: string }
+    >(),
+    assertEqualTypes<
+      Derive<Book, { title: Auto }>,
+      { title: string | null | undefined }
+    >(),
+    assertEqualTypes<
+      Derive<Book, { synopsis: Auto }>,
+      { synopsis: string | null }
+    >(),
+    assertEqualTypes<
+      Derive<User, { note: Auto }>,
+      { note?: string | undefined }
+    >(),
+    assertEqualTypes<
+      Derive<User, { editorNote: Auto }>,
+      { editorNote?: string | null }
+    >(),
+  ]),
 
-  // Mutual recursion
-  assertEqualTypes<
-    Derive<User, { favoriteBook: { author: { id: Auto } } }>,
-    { favoriteBook: { author: { id: number } } | null }
-  >(),
+  it('supports records', [
+    assertEqualTypes<
+      Derive<User, { manager: { id: Auto } }>,
+      { manager: { id: number } }
+    >(),
+    assertEqualTypes<
+      Derive<User, { bestFriend: { id: Auto } }>,
+      { bestFriend: { id: number } | undefined }
+    >(),
+  ]),
 
-  // Auto modifications
-  assertEqualTypes<
-    Derive<Book, { synopsis: Auto | null }>,
-    { synopsis: string | null }
-  >(),
-  assertEqualTypes<
-    Derive<Book, { synopsis: Auto | undefined }>,
-    { synopsis: string | null | undefined }
-  >(),
+  it('supports arrays', [
+    assertEqualTypes<
+      Derive<User, { friends: { id: Auto } }>,
+      { friends: { id: number }[] }
+    >(),
+    assertEqualTypes<
+      Derive<User, { parents: { id: Auto } }>,
+      { parents: { id: number }[] | null }
+    >(),
+  ]),
 
-  // Custom properties
-  assertEqualTypes<
-    Derive<Book, { isActive: boolean; synopsis: Auto }>,
-    { isActive: boolean; synopsis: string | null }
-  >(),
-  assertEqualTypes<
-    Derive<Book, { isActive?: boolean; synopsis: Auto }>,
-    { isActive?: boolean; synopsis: string | null }
-  >(),
+  it('supports recursive types', [
+    assertEqualTypes<
+      Derive<User, { parents: { manager: { id: Auto } } }>,
+      { parents: { manager: { id: number } }[] | null }
+    >(),
+  ]),
 
-  // Supports nested derives
-  assertEqualTypes<
-    Derive<Book, { isdn: Auto; someAlias: Derive<Book['isdn']> }>,
-    { isdn: number; someAlias: number }
-  >(),
-  assertEqualTypes<
-    Derive<Book, { isdn: Auto; someAlias: Derive<User['note']> }>,
-    { isdn: number; someAlias: string | undefined }
-  >(),
-  assertEqualTypes<
-    Derive<Book, { isdn: Auto; someAlias: Derive<Book['isdn'], Auto | null> }>,
-    { isdn: number; someAlias: number | null }
-  >(),
-  assertEqualTypes<
-    Derive<Book, { isdn: Auto; someAlias: Derive<Book['isdn']> | null }>,
-    { isdn: number; someAlias: number | null }
-  >(),
-  assertEqualTypes<
-    Derive<Book, { isdn: Auto; someAlias?: Derive<Book['isdn'], Auto | null> }>,
-    { isdn: number; someAlias?: number | null }
-  >(),
-  assertEqualTypes<
-    Derive<
-      Book,
+  it('supports mutually recursive types', [
+    assertEqualTypes<
+      Derive<User, { favoriteBook: { author: { id: Auto } } }>,
+      { favoriteBook: { author: { id: number } } | null }
+    >(),
+  ]),
+
+  it('supports aliases', [
+    assertEqualTypes<Derive<string, Alias<Book, 'isdn', Auto>>, number>(),
+    assertEqualTypes<
+      Derive<Book, { isdn: Auto; someAlias: Alias<Book, 'isdn', Auto> }>,
+      { isdn: number; someAlias: number }
+    >(),
+  ]),
+  it('supports aliases that override existing fields', [
+    assertEqualTypes<
+      Derive<Book, { isdn: Auto; author: Alias<Book, 'isdn', Auto> }>,
+      { isdn: number; author: number }
+    >(),
+  ]),
+  it('infers optionality for fields with aliases', [
+    assertEqualTypes<
+      Derive<Book, { isdn: Auto; someAlias: Alias<User, 'note', Auto> }>,
+      { isdn: number; someAlias?: string | undefined }
+    >(),
+  ]),
+  it('supports nested aliases', [
+    assertEqualTypes<
+      Derive<
+        Book,
+        {
+          isdn: Auto;
+          someAlias: Alias<
+            Book,
+            'author',
+            { id: Auto; note: Auto; someOtherAlias: Alias<User, 'name', Auto> }
+          >;
+        }
+      >,
       {
-        isdn: Auto;
-        someAlias?: Derive<Book['author'], { id: Auto; note: Auto }>;
+        isdn: number;
+        someAlias: {
+          id: number;
+          note?: string | undefined;
+          someOtherAlias: string;
+        };
       }
-    >,
-    {
-      isdn: number;
-      someAlias?:
-        | {
-            id: number;
-            note?: string | undefined;
-          }
-        | undefined;
-    }
-  >(),
-
-  // Supports aliases
-  assertEqualTypes<
-    Derive<Book, { isdn: Auto; someAlias: Alias<Book, 'isdn'> }>,
-    { isdn: number; someAlias: number }
-  >(),
-  assertEqualTypes<
-    Derive<Book, { isdn: Auto; someAlias: Alias<User, 'note'> }>,
-    { isdn: number; someAlias?: string | undefined }
-  >(),
-  assertEqualTypes<
-    Derive<Book, { isdn: Auto; someAlias: Alias<Book, 'isdn', Auto | null> }>,
-    { isdn: number; someAlias: number | null }
-  >(),
-  assertEqualTypes<
-    Derive<Book, { isdn: Auto; someAlias: Alias<Book, 'isdn'> | null }>,
-    { isdn: number; someAlias: number | null }
-  >(),
-  assertEqualTypes<
-    Derive<Book, { isdn: Auto; someAlias?: Alias<Book, 'isdn', Auto | null> }>,
-    { isdn: number; someAlias?: number | null }
-  >(),
-  assertEqualTypes<
-    Derive<
-      Book,
-      {
-        isdn: Auto;
-        someAlias?: Alias<
-          Book,
-          'author',
-          { id: Auto; note: Auto; someOtherAlias: Alias<User, 'name'> }
-        >;
-      }
-    >,
-    {
-      isdn: number;
-      someAlias?:
-        | {
-            id: number;
-            note?: string | undefined;
-            someOtherAlias: string;
-          }
-        | undefined;
-    }
-  >(),
+    >(),
+  ]),
 ]);

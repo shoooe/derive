@@ -4,4 +4,4 @@
  * @param subject The name of the subject under test.
  * @param checks The list of static checks.
  */
-export declare function test(subject: string, checks: true[]): void;
+export declare function describe(subject: string, checks: true[]): void;

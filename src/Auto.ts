@@ -1,10 +1,7 @@
 /**
- * Type used to mark that a field type should be inferred from some base
+ * Type used to mark that a field type should be inferred from some target
  * type.
  **/
-export type Auto = typeof auto;
-
-/**
- * @package
- */
-declare const auto: unique symbol;
+export class Auto {
+  private __auto!: void;
+}

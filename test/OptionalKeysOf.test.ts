@@ -1,6 +1,7 @@
 import { assertEqualTypes } from '../utils/assertEqualTypes';
-import { test } from '../utils/test';
 import { OptionalKeysOf } from '../src/OptionalKeysOf';
+import { describe } from '../utils/describe';
+import { it } from '../utils/it';
 
 type Mouse = {
   a: string;
@@ -12,6 +13,8 @@ type Mouse = {
   g?: string | null | undefined;
 };
 
-test('OptionalKeysOf', [
-  assertEqualTypes<OptionalKeysOf<Mouse>, 'e' | 'f' | 'g'>(),
+describe('OptionalKeysOf', [
+  it('returns the optional keys for the given type', [
+    assertEqualTypes<OptionalKeysOf<Mouse>, 'e' | 'f' | 'g'>(),
+  ]),
 ]);

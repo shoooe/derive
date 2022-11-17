@@ -1,4 +1,4 @@
-import type { ElementTypeOf } from './ElementTypeOf';
+import { ElementTypeOf } from './ElementTypeOf';
 
 /**
  * Gets the core type of another type by stripping array notations, `null` and
@@ -6,4 +6,4 @@ import type { ElementTypeOf } from './ElementTypeOf';
  *
  * @package
  */
-export type CoreTypeOf<BaseType> = NonNullable<ElementTypeOf<BaseType>>;
+export type CoreTypeOf<Type> = ElementTypeOf<NonNullable<Type>>;
