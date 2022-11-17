@@ -36,5 +36,15 @@
   "files": [
     "out"
   ],
-  "private": false
+  "private": false,
+  "release": {
+    "branches": ["main"],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      ["@semantic-release/git", {
+        "assets": ["package.json"],
+        "message": "chore(release): ${nextRelease.version}"
+      }]
+    ]
+  }
 }
