@@ -1,9 +1,9 @@
 name: Node.js CI
 on:
   push:
-    branches: ['features/add-cd']
+    branches: [main, 'features/add-cd']
   pull_request:
-    branches: ['features/add-cd']
+    branches: [main, 'features/add-cd']
 env:
   # Needed by @semantic-release/github
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

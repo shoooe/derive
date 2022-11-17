@@ -1,4 +1,5 @@
 branches:
+  - main
   - name: 'features/add-cd'
     prerelease: true
 debug: true
