@@ -212,7 +212,7 @@ type Result = Derive<
 >;
 ```
 
-results in:
+will result in:
 
 ```typescript
 type Result = { alias: string | null };
