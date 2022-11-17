@@ -1,6 +1,6 @@
 {
   "name": "@shoooe/derive",
-  "version": "0.2.4",
+  "version": "0.0.0-semantic-release",
   "description": "Library to derive a type from another.",
   "keywords": [
     "safe",
@@ -47,7 +47,11 @@
     "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
-      "@semantic-release/npm"
+      "@semantic-release/npm",
+      ["@semantic-release/git", {
+        "assets": ["package.json"],
+        "message": "chore(release): ${nextRelease.version}\n\n${nextRelease.notes}"
+      }]
     ]
   }
 }
