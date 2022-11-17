@@ -1,0 +1,24 @@
+name: Node.js CI
+on:
+  push:
+    branches: ['features/add-cd']
+  pull_request:
+    branches: ['features/add-cd']
+env:
+  # Needed by @semantic-release/github
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: yarn build
+      - run: npx semantic-release
