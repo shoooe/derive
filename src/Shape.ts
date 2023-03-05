@@ -7,10 +7,10 @@ import { ValidShape } from './ValidShape';
  *
  * @example
  * type BookShape = Shape<Book, {
- *     id: Auto;
- *     title: Auto;
+ *     id: true;
+ *     title: true;
  *     author: {
- *         id: Auto;
+ *         id: true;
  *         name: Alias<User, 'name'>
  *     }
  * }>;

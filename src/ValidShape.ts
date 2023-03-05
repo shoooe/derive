@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Alias } from './Alias';
-import { Auto } from './Auto';
 import { CoreTypeOf } from './CoreTypeOf';
 import { Exactly } from './Exactly';
 import { RecordLike } from './RecordLike';
@@ -22,16 +20,8 @@ export type ValidShape<Target, Shape> = CoreTypeOf<Target> extends RecordLike
             CoreTypeOf<Target>[Key],
             Shape[Key]
           >;
-        } & {
-          // For everything else we only accept Alias.
-          [Key in Exclude<keyof Shape, keyof CoreTypeOf<Target>>]: Alias<
-            any,
-            any,
-            any
-          >;
         },
         Shape
       >
-    : // If the target is an object and the shape is not then it can only be an alias.
-      Alias<any, any, any>
-  : Auto | Alias<any, any, any>;
+    : never
+  : true;

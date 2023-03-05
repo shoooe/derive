@@ -2,23 +2,22 @@ import { describe } from '../utils/describe';
 import { it } from '../utils/it';
 import { assertEqualTypes } from '../utils/assertEqualTypes';
 import { Shape } from '../src/Shape';
-import { Auto } from '../src/Auto';
 import { assertCompilationError } from '../utils/assertCompilationError';
 import { EmptyRecord } from '../src/EmptyRecord';
 
 describe('Shape', [
   it('allows scalars as target types', [
-    assertEqualTypes<Shape<number, Auto>, Auto>(),
+    assertEqualTypes<Shape<number, true>, true>(),
   ]),
   it('allows empty records for record types', [
     assertEqualTypes<Shape<{ id: number }, EmptyRecord>, EmptyRecord>(),
   ]),
-  it("doesn't allow using `Auto` for an object like field", [
+  it("doesn't allow using `true` for an object like field", [
     assertCompilationError<
       Shape<
         { nested: { id: string } },
         // @ts-expect-error: error
-        { nested: Auto }
+        { nested: true }
       >
     >(),
   ]),
@@ -38,12 +37,12 @@ describe('Shape', [
       >
     >(),
   ]),
-  it("doesn't allow optional `Auto`s", [
+  it("doesn't allow optional `true`s", [
     assertCompilationError<
       Shape<
         { id: string },
         // @ts-expect-error: error
-        { id?: Auto }
+        { id?: true }
       >
     >(),
   ]),

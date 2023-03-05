@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Alias } from '../src/Alias';
-import { Auto } from '../src/Auto';
 import { AutocompleteHelper } from '../src/AutocompleteHelper';
 import { assertEqualTypes } from '../utils/assertEqualTypes';
 import { describe } from '../utils/describe';
@@ -10,36 +8,36 @@ describe('AutocompleteHelper', [
   it('supports scalar types', [
     assertEqualTypes<
       AutocompleteHelper<{ id: number }>,
-      { id?: Auto | Alias<any, any, any> }
+      { id?: true }
     >(),
   ]),
 
   it('ignores null and undefined', [
     assertEqualTypes<
       AutocompleteHelper<{ id: number | undefined }>,
-      { id?: Auto | Alias<any, any, any> }
+      { id?: true }
     >(),
     assertEqualTypes<
       AutocompleteHelper<{ id: number | null }>,
-      { id?: Auto | Alias<any, any, any> }
+      { id?: true }
     >(),
     assertEqualTypes<
       AutocompleteHelper<{ id: number | null | undefined }>,
-      { id?: Auto | Alias<any, any, any> }
+      { id?: true }
     >(),
   ]),
 
   it('ignores optionality', [
     assertEqualTypes<
       AutocompleteHelper<{ id?: number }>,
-      { id?: Auto | Alias<any, any, any> }
+      { id?: true }
     >(),
   ]),
 
   it('supports nested records', [
     assertEqualTypes<
       AutocompleteHelper<{ friend: { name: string } }>,
-      { friend?: { name?: Auto | Alias<any, any, any> } }
+      { friend?: { name?: true } }
     >(),
   ]),
 
@@ -48,33 +46,33 @@ describe('AutocompleteHelper', [
       AutocompleteHelper<{
         friend: { name: string } | null;
       }>,
-      { friend?: { name?: Auto | Alias<any, any, any> } }
+      { friend?: { name?: true } }
     >(),
     assertEqualTypes<
       AutocompleteHelper<{
         friend: { name: string } | undefined;
       }>,
-      { friend?: { name?: Auto | Alias<any, any, any> } }
+      { friend?: { name?: true } }
     >(),
     assertEqualTypes<
       AutocompleteHelper<{
         friend: { name: string } | null | undefined;
       }>,
-      { friend?: { name?: Auto | Alias<any, any, any> } }
+      { friend?: { name?: true } }
     >(),
   ]),
 
   it('supports scalar arrays', [
     assertEqualTypes<
       AutocompleteHelper<{ id: number[] }>,
-      { id?: Auto | Alias<any, any, any> }
+      { id?: true }
     >(),
   ]),
 
   it('supports unions', [
     assertEqualTypes<
       AutocompleteHelper<{ id: number | string }>,
-      { id?: Auto | Alias<any, any, any> }
+      { id?: true }
     >(),
   ]),
 
@@ -82,8 +80,8 @@ describe('AutocompleteHelper', [
     assertEqualTypes<
       AutocompleteHelper<{ id: number; friend: { name: string }[] }>,
       {
-        id?: Auto | Alias<any, any, any>;
-        friend?: { name?: Auto | Alias<any, any, any> };
+        id?: true;
+        friend?: { name?: true };
       }
     >(),
   ]),

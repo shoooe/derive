@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Alias } from './Alias';
-import { Auto } from './Auto';
 import { CoreTypeOf } from './CoreTypeOf';
 import { RecordLike } from './RecordLike';
 
@@ -18,4 +16,4 @@ export type AutocompleteHelper<Target> = CoreTypeOf<Target> extends RecordLike
         CoreTypeOf<Target>[Key]
       >;
     }
-  : Auto | Alias<any, any, any>;
+  : true;

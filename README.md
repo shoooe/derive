@@ -53,29 +53,27 @@ We can derive a subset of its properties via:
 type Result = Derive<
   User,
   {
-    // `Auto` = infer original type (`number`)
-    id: Auto;
-
-    // `Auto` = infer original type (`string`)
-    name: Auto;
+    id: true;
+    name: true;
 
     // Automatically expands nullable & optional types, which means that `null`
     // and `undefined` will be added automatically to the resulting type if
     // they existed in the target type.
     bestFriend: {
-      name: Auto;
+      name: true;
     };
 
     // Automatically expands arrays as well
     friends: {
-      name: Auto;
+      name: true;
+
       // Supports mutually recursive types
       favoriteBook: {
-        isdn: Auto;
-        title: Auto;
-        synopsis: Auto;
+        isdn: true;
+        title: true;
+        synopsis: true;
         author: {
-          name: Auto;
+          name: true;
         };
       };
     };
@@ -118,10 +116,10 @@ You can extract and reuse shapes:
 type CustomShape = Shape<
   User,
   {
-    id: Auto;
-    name: Auto;
+    id: true;
+    name: true;
     bestFriend: {
-      name: Auto;
+      name: true;
     };
   }
 >;
@@ -139,30 +137,11 @@ Otherwise you can use them inside other shapes:
 type Result = Derive<
   User,
   {
-    id: Auto;
-    name: Auto;
+    id: true;
+    name: true;
     bestFriend: CustomShape;
   }
 >;
-```
-
-### Aliases
-
-You can alias a field from another type and infer nullability and optionality using `Alias` like this:
-
-```typescript
-type Result = Derive<
-  User,
-  {
-    alias: Alias<Book, 'subtitle', Auto>;
-  }
->;
-```
-
-which will result in:
-
-```typescript
-type Result = { alias?: string | null };
 ```
 
 ## Credits
