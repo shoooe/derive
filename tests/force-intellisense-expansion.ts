@@ -1,7 +1,7 @@
-import { assertEqualTypes } from '../utils/assertEqualTypes';
+import { assertEqualTypes } from '../utils/assert-equal-types';
 import { describe } from '../utils/describe';
 import { it } from '../utils/it';
-import { ForceIntellisenseExpansion } from '../src/ForceIntellisenseExpansion';
+import { ForceIntellisenseExpansion } from '../src/force-intellisense-expansion';
 
 describe('ForceIntellisenseExpansion', [
   it('should perform no modifications to the type', [

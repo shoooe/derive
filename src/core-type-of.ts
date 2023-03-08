@@ -1,4 +1,4 @@
-import { ElementTypeOf } from './ElementTypeOf';
+import { ElementTypeOf } from './element-type-of';
 
 /**
  * Gets the core type of another type by stripping array notations, `null` and

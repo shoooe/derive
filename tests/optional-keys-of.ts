@@ -1,5 +1,5 @@
-import { assertEqualTypes } from '../utils/assertEqualTypes';
-import { OptionalKeysOf } from '../src/OptionalKeysOf';
+import { assertEqualTypes } from '../utils/assert-equal-types';
+import { OptionalKeysOf } from '../src/optional-keys-of';
 import { describe } from '../utils/describe';
 import { it } from '../utils/it';
 

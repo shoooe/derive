@@ -1,4 +1,4 @@
-import { RecordLike } from './RecordLike';
+import { RecordLike } from './record-like';
 
 /**
  * This is a no-op type that forces intellisense to evaluate the type

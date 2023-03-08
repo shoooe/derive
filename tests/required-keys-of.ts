@@ -1,6 +1,6 @@
-import { assertEqualTypes } from '../utils/assertEqualTypes';
+import { assertEqualTypes } from '../utils/assert-equal-types';
 import { it } from '../utils/it';
-import { RequiredKeysOf } from '../src/RequiredKeysOf';
+import { RequiredKeysOf } from '../src/required-keys-of';
 import { describe } from '../utils/describe';
 
 type Mouse = {

@@ -2,20 +2,20 @@
 
 [![npm version](https://badge.fury.io/js/@shoooe%2Fderive.svg)](https://badge.fury.io/js/@shoooe%2Fderive)
 
-Utility type to generate a type starting from another.
+Utility type to generate a type from another with a special care for the DX.
 
-You can see this tool as an hardcode version of `Pick`.
+You can see this tool as an _hardcode_ version of `Pick`.
 
 Features:
 
 - 😎 Type safe
 - 🌱 Minimal & lightweight
 - ⌨️​ Autocompletion for fields
+- 💥 Automatically expands arrays and nullable/optional types
 - 👀 Preview expanded types in intellisense
 - 💫 Supports recursive & mutually recursive types
 - ❓ Optional fields support
 - 💋 Inspired by GraphQL
-- 🛠 Supports [GraphQL Code Generator](https://github.com/dotansimha/graphql-code-generator) types
 
 ## Installation
 
@@ -53,29 +53,27 @@ We can derive a subset of its properties via:
 type Result = Derive<
   User,
   {
-    // `Auto` = infer original type (`number`)
-    id: Auto;
-
-    // `Auto` = infer original type (`string`)
-    name: Auto;
+    id: true;
+    name: true;
 
     // Automatically expands nullable & optional types, which means that `null`
     // and `undefined` will be added automatically to the resulting type if
     // they existed in the target type.
     bestFriend: {
-      name: Auto;
+      name: true;
     };
 
     // Automatically expands arrays as well
     friends: {
-      name: Auto;
+      name: true;
+
       // Supports mutually recursive types
       favoriteBook: {
-        isdn: Auto;
-        title: Auto;
-        synopsis: Auto;
+        isdn: true;
+        title: true;
+        synopsis: true;
         author: {
-          name: Auto;
+          name: true;
         };
       };
     };
@@ -110,60 +108,9 @@ type Result = {
 };
 ```
 
-### Reusing shapes
+## Alternatives
 
-You can extract and reuse shapes:
-
-```typescript
-type CustomShape = Shape<
-  User,
-  {
-    id: Auto;
-    name: Auto;
-    bestFriend: {
-      name: Auto;
-    };
-  }
->;
-```
-
-Once defined you can use them directly to generate the type:
-
-```typescript
-type Result = Derive<User, CustomShape>;
-```
-
-Otherwise you can use them inside other shapes:
-
-```typescript
-type Result = Derive<
-  User,
-  {
-    id: Auto;
-    name: Auto;
-    bestFriend: CustomShape;
-  }
->;
-```
-
-### Aliases
-
-You can alias a field from another type and infer nullability and optionality using `Alias` like this:
-
-```typescript
-type Result = Derive<
-  User,
-  {
-    alias: Alias<Book, 'subtitle', Auto>;
-  }
->;
-```
-
-which will result in:
-
-```typescript
-type Result = { alias?: string | null };
-```
+- [ts-essentials](https://github.com/ts-essentials/ts-essentials): comprehensive library with a different style for `DeepPick` (it doesn't do automatic expansion)
 
 ## Credits
 

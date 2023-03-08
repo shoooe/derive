@@ -5,6 +5,8 @@
   "keywords": [
     "safe",
     "derive",
+    "pick",
+    "deep",
     "types",
     "typesafe",
     "typescript",

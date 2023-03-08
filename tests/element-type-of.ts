@@ -1,5 +1,5 @@
-import { assertEqualTypes } from '../utils/assertEqualTypes';
-import { ElementTypeOf } from '../src/ElementTypeOf';
+import { assertEqualTypes } from '../utils/assert-equal-types';
+import { ElementTypeOf } from '../src/element-type-of';
 import { describe } from '../utils/describe';
 import { it } from '../utils/it';
 

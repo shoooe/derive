@@ -1,4 +1,4 @@
-import { OptionalKeysOf } from './OptionalKeysOf';
+import { OptionalKeysOf } from './optional-keys-of';
 
 /**
  * Returns the union of keys from `Type` that are required.
