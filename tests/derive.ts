@@ -2,7 +2,6 @@ import { assertEqualTypes } from '../utils/assert-equal-types';
 import { describe } from '../utils/describe';
 import { it } from '../utils/it';
 import { Derive } from '../src/derive';
-import { assertCompilationError } from '../utils/assert-compilation-error';
 
 // Test data (with recursive & mutually recursive types)
 type User = {

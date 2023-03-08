@@ -11,10 +11,6 @@ type DeriveAutocomplete = Derive<
   User,
   {
     id: true;
-    bestFriend: {
-      id: true;
-      name: true;
-    }
     // CHECK: start typing "name" and notice the autocomplete
     // CHECK: start typing "bestFriend" and then "name" and notice the autocomplete for the nested type
   }
