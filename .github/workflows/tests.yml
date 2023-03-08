@@ -10,13 +10,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup node.js
-        uses: actions/setup-node@v1
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
         with:
-          node-version: '16'
+          node-version: 'lts/*'
 
       - name: Install dependencies
-        run: yarn install
+        run: yarn install --frozen-lockfile
 
       - name: Run tests
         run: yarn test
