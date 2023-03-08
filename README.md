@@ -2,20 +2,20 @@
 
 [![npm version](https://badge.fury.io/js/@shoooe%2Fderive.svg)](https://badge.fury.io/js/@shoooe%2Fderive)
 
-Utility type to generate a type starting from another.
+Utility type to generate a type from another with a special care for the DX.
 
-You can see this tool as an hardcode version of `Pick`.
+You can see this tool as an _hardcode_ version of `Pick`.
 
 Features:
 
 - 😎 Type safe
 - 🌱 Minimal & lightweight
 - ⌨️​ Autocompletion for fields
+- 💥 Automatically expands arrays and nullable/optional types
 - 👀 Preview expanded types in intellisense
 - 💫 Supports recursive & mutually recursive types
 - ❓ Optional fields support
 - 💋 Inspired by GraphQL
-- 🛠 Supports [GraphQL Code Generator](https://github.com/dotansimha/graphql-code-generator) types
 
 ## Installation
 
@@ -107,6 +107,10 @@ type Result = {
     | undefined;
 };
 ```
+
+## Alternatives
+
+- [ts-essentials](https://github.com/ts-essentials/ts-essentials): comprehensive library with a different style for `DeepPick` (it doesn't do automatic expansion)
 
 ## Credits
 
