@@ -1,5 +1,5 @@
-import { Exactly } from '../src/Exactly';
-import { assertEqualTypes } from '../utils/assertEqualTypes';
+import { Exactly } from '../src/exactly';
+import { assertEqualTypes } from '../utils/assert-equal-types';
 import { describe } from '../utils/describe';
 import { it } from '../utils/it';
 

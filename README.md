@@ -108,42 +108,6 @@ type Result = {
 };
 ```
 
-### Reusing shapes
-
-You can extract and reuse shapes:
-
-```typescript
-type CustomShape = Shape<
-  User,
-  {
-    id: true;
-    name: true;
-    bestFriend: {
-      name: true;
-    };
-  }
->;
-```
-
-Once defined you can use them directly to generate the type:
-
-```typescript
-type Result = Derive<User, CustomShape>;
-```
-
-Otherwise you can use them inside other shapes:
-
-```typescript
-type Result = Derive<
-  User,
-  {
-    id: true;
-    name: true;
-    bestFriend: CustomShape;
-  }
->;
-```
-
 ## Credits
 
 Special thanks to:

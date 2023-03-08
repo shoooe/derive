@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AutocompleteHelper } from '../src/AutocompleteHelper';
-import { assertEqualTypes } from '../utils/assertEqualTypes';
+import { AutocompleteHelper } from '../src/autocomplete-helper';
+import { assertEqualTypes } from '../utils/assert-equal-types';
 import { describe } from '../utils/describe';
 import { it } from '../utils/it';
 

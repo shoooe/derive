@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { CoreTypeOf } from './CoreTypeOf';
-import { RecordLike } from './RecordLike';
+import { CoreTypeOf } from './core-type-of';
+import { RecordLike } from './record-like';
 
 /**
  * Represents the possible shape values for a given target type fields.

@@ -1,7 +1,7 @@
-import { assertEqualTypes } from '../utils/assertEqualTypes';
+import { assertEqualTypes } from '../utils/assert-equal-types';
 import { it } from '../utils/it';
 import { describe } from '../utils/describe';
-import { CoreTypeOf } from '../src/CoreTypeOf';
+import { CoreTypeOf } from '../src/core-type-of';
 
 describe('CoreTypeOf', [
   it('returns a simple scalar type', [

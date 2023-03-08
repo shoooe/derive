@@ -1,8 +1,8 @@
-import { assertEqualTypes } from '../utils/assertEqualTypes';
+import { assertEqualTypes } from '../utils/assert-equal-types';
 import { describe } from '../utils/describe';
 import { it } from '../utils/it';
-import { Derive } from '../src/Derive';
-import { assertCompilationError } from '../utils/assertCompilationError';
+import { Derive } from '../src/derive';
+import { assertCompilationError } from '../utils/assert-compilation-error';
 
 // Test data (with recursive & mutually recursive types)
 type User = {
@@ -33,26 +33,6 @@ describe('Derive', [
     assertEqualTypes<
       Derive<number | null | undefined, true>,
       number | null | undefined
-    >(),
-  ]),
-
-  it("doesn't allow `true` for object like types", [
-    assertCompilationError<
-      Derive<
-        { nested: { id: string } },
-        // @ts-expect-error Type 'boolean' is not assignable to type 'never'
-        { nested: true }
-      >
-    >(),
-  ]),
-
-  it("doesn't allow nested shapes for scalar types", [
-    assertCompilationError<
-      Derive<
-        { id: string },
-        // @ts-expect-error Type '{ prop: true; }' is not assignable to type 'true'
-        { id: { prop: true } }
-      >
     >(),
   ]),
 

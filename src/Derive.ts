@@ -1,8 +1,8 @@
-import { AutocompleteHelper } from './AutocompleteHelper';
-import { ForceIntellisenseExpansion } from './ForceIntellisenseExpansion';
-import { RecordLike } from './RecordLike';
-import { ValidShape } from './ValidShape';
-import { OptionalKeysOf } from './OptionalKeysOf';
+import { AutocompleteHelper } from './autocomplete-helper';
+import { ForceIntellisenseExpansion } from './force-intellisense-expansion';
+import { RecordLike } from './record-like';
+import { ValidShape } from './valid-shape';
+import { OptionalKeysOf } from './optional-keys-of';
 
 /**
  * Utility  to derive a type from another type.

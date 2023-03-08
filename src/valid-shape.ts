@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { CoreTypeOf } from './CoreTypeOf';
-import { Exactly } from './Exactly';
-import { RecordLike } from './RecordLike';
+import { CoreTypeOf } from './core-type-of';
+import { Exactly } from './exactly';
+import { RecordLike } from './record-like';
 
 /**
  * Usually used in `extends` clause to check that a shape is a valid shape

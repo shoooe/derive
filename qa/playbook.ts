@@ -1,5 +1,4 @@
-import { Derive } from '../src/Derive';
-import { Shape } from '../src/Shape';
+import { Derive } from '../src/derive';
 
 type User = {
   id: string;
@@ -8,20 +7,14 @@ type User = {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-type ShapeAutocomplete = Shape<
-  User,
-  {
-    id: true;
-    // CHECK: start typing "name" and notice the autocomplete
-    // CHECK: start typing "bestFriend" and then "name" and notice the autocomplete for the nested type
-  }
->;
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type DeriveAutocomplete = Derive<
   User,
   {
     id: true;
+    bestFriend: {
+      id: true;
+      name: true;
+    }
     // CHECK: start typing "name" and notice the autocomplete
     // CHECK: start typing "bestFriend" and then "name" and notice the autocomplete for the nested type
   }
